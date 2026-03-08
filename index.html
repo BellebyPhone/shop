@@ -318,26 +318,23 @@
                 </div>
 
                 <div class="sub-card bg-cutie-50/30">
-                    <label class="block text-sm font-heading font-semibold text-cutie-600 mb-3 text-center"><i class="fa-solid fa-calculator mr-1"></i> คำนวณแผนการผ่อนชำระ</label>
+                    <label class="block text-sm font-heading font-semibold text-cutie-600 mb-3 text-center"><i class="fa-solid fa-pen-to-square mr-1"></i> วิธีการผ่อนชำระ</label>
                     <div class="space-y-3">
                         <div>
                             <label class="block text-[10px] text-gray-500 mb-1 text-center font-medium">รอบการส่งยอด</label>
-                            <select id="calc-cycle" onchange="updateFromDuration()" class="input-cutie !p-2 text-sm bg-white border-white shadow-sm w-full font-medium">
+                            <select id="calc-cycle" class="input-cutie !p-2 text-sm bg-white border-white shadow-sm w-full font-medium">
                                 <option value="รายเดือน">รายเดือน</option><option value="รายสัปดาห์">รายสัปดาห์</option><option value="รายวัน">รายวัน</option>
                             </select>
                         </div>
                         
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-3">
                             <div class="w-1/2">
-                                <label class="block text-[10px] text-gray-500 mb-1 text-center font-semibold">พิมพ์ยอดที่อยากส่ง (฿)</label>
-                                <input type="number" id="calc-amount" min="350" oninput="updateFromAmount()" class="input-cutie !p-2 text-[15px] font-bold text-cutie-600 bg-white border-2 border-white shadow-sm text-center" placeholder="ระบุยอด">
-                            </div>
-                            <div class="text-gray-300 text-xs mt-4">
-                                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                                <label class="block text-[10px] text-gray-500 mb-1 text-center font-semibold">ยอดที่ต้องการส่ง (฿)</label>
+                                <input type="number" id="calc-amount" min="350" oninput="checkAmount()" class="input-cutie !p-2 text-[15px] font-bold text-cutie-600 bg-white border-2 border-white shadow-sm text-center" placeholder="ระบุยอด">
                             </div>
                             <div class="w-1/2">
-                                <label class="block text-[10px] text-gray-500 mb-1 text-center font-semibold">หรือ พิมพ์จำนวนงวด</label>
-                                <input type="number" id="calc-duration" min="1" oninput="updateFromDuration()" class="input-cutie !p-2 text-[15px] font-bold text-gray-700 bg-white border-2 border-white shadow-sm text-center" placeholder="ระบุงวด">
+                                <label class="block text-[10px] text-gray-500 mb-1 text-center font-semibold">จำนวน (งวด/เดือน)</label>
+                                <input type="number" id="calc-duration" min="1" class="input-cutie !p-2 text-[15px] font-bold text-gray-700 bg-white border-2 border-white shadow-sm text-center" placeholder="ระบุจำนวน">
                             </div>
                         </div>
 
@@ -402,7 +399,6 @@
                     }
                     Swal.close();
                     
-                    // ดึงข้อมูลเสร็จ อัปเดตหน้าต่างปัจจุบันแบบ Realtime
                     if (currentView === 'home') { renderStoreHome(); } 
                     else if (currentView === 'admin') { renderAdminProductList(); }
                 }
@@ -436,7 +432,6 @@
 
             const grid = document.getElementById('product-grid');
             if (storeProducts.length === 0) {
-                // จัดกึ่งกลางสวยๆ กรณีไม่มีสินค้า
                 grid.innerHTML = `
                 <div class="col-span-2 md:col-span-3 text-center py-12 flex flex-col items-center justify-center">
                     <i class="fa-solid fa-box-open text-4xl text-gray-300 mb-3"></i>
@@ -464,7 +459,6 @@
         function openPaymentLink() { if(storeSettings.paymentBannerLink) window.open(storeSettings.paymentBannerLink, '_blank'); }
         function openLine() { if(storeSettings.lineUrl) window.open(storeSettings.lineUrl, '_blank'); }
 
-        // --- ระบบป๊อปอัปสินค้าและคำนวณ (2-Way Binding) ---
         function openProductDetail(productId) {
             const product = storeProducts.find(p => p['ID'] == productId);
             if(!product) return;
@@ -492,9 +486,12 @@
                 btnUse.style.display = 'none'; selectInstallmentType('ผ่อนจบรับของ');
             } else { selectInstallmentType('ผ่อนไปใช้ไป'); }
 
-            // ตั้งค่าตั้งต้นที่ 10 งวด และให้มันคำนวณยอดเงินให้อัตโนมัติ
-            document.getElementById('calc-duration').value = 10;
-            updateFromDuration(); 
+            // ล้างช่องกรอกข้อมูลให้ว่างเปล่าเพื่อให้ลูกค้ากรอกเอง
+            document.getElementById('calc-amount').value = '';
+            document.getElementById('calc-duration').value = '';
+            document.getElementById('calc-warning').innerText = '';
+            document.getElementById('calc-amount').classList.remove('text-red-500', 'border-red-400');
+            document.getElementById('calc-amount').classList.add('text-cutie-600', 'border-white');
 
             document.getElementById('product-modal').classList.remove('hidden');
         }
@@ -527,49 +524,14 @@
             }
         }
 
-        // ระบบคำนวณ: ลูกค้าพิมพ์ยอดเงิน -> เปลี่ยนจำนวนงวด
-        function updateFromAmount() {
+        // ตรวจสอบยอดขั้นต่ำ 350 โดยไม่คำนวณสลับช่อง
+        function checkAmount() {
             let amount = parseInt(document.getElementById('calc-amount').value);
-            let remaining = Math.max(0, selectedProductInfo.price - selectedProductInfo.down); // ป้องกันค่ายอดคงเหลือติดลบ
-            
-            if (isNaN(amount) || amount <= 0) {
-                document.getElementById('calc-duration').value = '';
-                checkMinimums(amount, 0);
-                return;
-            }
-            
-            let duration = Math.ceil(remaining / amount);
-            document.getElementById('calc-duration').value = duration;
-            checkMinimums(amount, duration);
-        }
-
-        // ระบบคำนวณ: ลูกค้าพิมพ์จำนวนงวด -> เปลี่ยนยอดเงิน
-        function updateFromDuration() {
-            let duration = parseInt(document.getElementById('calc-duration').value);
-            let remaining = Math.max(0, selectedProductInfo.price - selectedProductInfo.down); // ป้องกันค่ายอดคงเหลือติดลบ
-            
-            if (isNaN(duration) || duration <= 0) {
-                document.getElementById('calc-amount').value = '';
-                checkMinimums(0, duration);
-                return;
-            }
-            
-            let amount = Math.ceil(remaining / duration);
-            document.getElementById('calc-amount').value = amount;
-            checkMinimums(amount, duration);
-        }
-
-        // ตรวจสอบและแจ้งเตือนยอดขั้นต่ำ 350
-        function checkMinimums(amount, duration) {
             const warningEl = document.getElementById('calc-warning');
             const amountEl = document.getElementById('calc-amount');
-            
-            selectedProductInfo.amountPerCycle = amount;
-            selectedProductInfo.duration = duration;
-            selectedProductInfo.cycle = document.getElementById('calc-cycle').value;
 
             if (!isNaN(amount) && amount > 0 && amount < 350) {
-                warningEl.innerText = "* ยอดส่งขั้นต่ำต้อง 350 บาทขึ้นไป (โปรดลดงวดลง)";
+                warningEl.innerText = "* ยอดส่งขั้นต่ำต้อง 350 บาทขึ้นไป";
                 amountEl.classList.add('text-red-500', 'border-red-400');
                 amountEl.classList.remove('text-cutie-600', 'border-white');
             } else {
@@ -580,16 +542,22 @@
         }
 
         function confirmProductToRegister() {
-            // ป้องกันกดยืนยันถ้ายอดน้อยกว่า 350 หรือใส่ข้อมูลไม่ครบ
-            if (!selectedProductInfo.amountPerCycle || selectedProductInfo.amountPerCycle < 350) {
-                Swal.fire('แจ้งเตือน', 'ยอดส่งขั้นต่ำต้อง 350 บาทขึ้นไป กรุณาเพิ่มยอดเงินหรือลดจำนวนงวดลงนะคะ', 'warning'); return;
+            let amount = parseInt(document.getElementById('calc-amount').value);
+            let duration = parseInt(document.getElementById('calc-duration').value);
+
+            if (isNaN(amount) || amount < 350) {
+                Swal.fire('แจ้งเตือน', 'กรุณาระบุยอดส่งที่ต้องการ โดยขั้นต่ำต้อง 350 บาทขึ้นไปนะคะ', 'warning'); return;
             }
-            if (!selectedProductInfo.duration || isNaN(selectedProductInfo.duration) || selectedProductInfo.duration < 1) {
-                Swal.fire('แจ้งเตือน', 'กรุณาระบุจำนวนงวดให้ถูกต้องค่ะ', 'warning'); return;
+            if (isNaN(duration) || duration < 1) {
+                Swal.fire('แจ้งเตือน', 'กรุณาระบุจำนวนงวด (ระยะเวลา) ให้ถูกต้องค่ะ', 'warning'); return;
             }
 
+            selectedProductInfo.amountPerCycle = amount;
+            selectedProductInfo.duration = duration;
+            selectedProductInfo.cycle = document.getElementById('calc-cycle').value;
             selectedProductInfo.storage = document.getElementById('sel-storage').value;
             selectedProductInfo.color = document.getElementById('sel-color').value;
+
             closeModal();
             switchPage('register');
         }
@@ -601,7 +569,7 @@
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> กำลังส่งข้อมูล...'; btn.disabled = true;
 
             const file = document.getElementById('reg-file').files[0];
-            if(!file) { Swal.fire('แจ้งเตือน', 'อย่าลืมแนบรูปบัตรประชาชนนะคะ', 'warning'); btn.innerHTML = 'ส่งข้อมูลลงทะเบียน <i class="fa-solid fa-arrow-right ml-1"></i>'; btn.disabled = false; return; }
+            if(!file) { Swal.fire('แจ้งเตือน', 'อย่าลืมแนบรูปถ่ายบัตรประชาชนนะคะ', 'warning'); btn.innerHTML = 'ส่งข้อมูลลงทะเบียน <i class="fa-solid fa-arrow-right ml-1"></i>'; btn.disabled = false; return; }
 
             const reader = new FileReader();
             reader.onload = async function() {
@@ -621,8 +589,12 @@
                     const res = await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: "register", data: payloadData }) });
                     const result = await res.json();
                     if(result.status === "success") {
-                        Swal.fire({ title: 'สำเร็จ!', text: 'ส่งข้อมูลเรียบร้อย กดเพื่อไปยังหน้าแจ้งส่งยอด', icon: 'success', confirmButtonColor: '#f06292' })
-                        .then(() => openPaymentLink());
+                        Swal.fire({ 
+                            title: 'สำเร็จ!', 
+                            html: '<i class="fa-solid fa-circle-check text-green-500 text-3xl mb-3"></i><br>ส่งข้อมูลเรียบร้อย กดเพื่อไปยังหน้าแจ้งส่งยอด', 
+                            showConfirmButton: true,
+                            confirmButtonColor: '#f06292' 
+                        }).then(() => openPaymentLink());
                     } else { throw new Error(result.message); }
                 } catch (err) { Swal.fire('ผิดพลาด', 'ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่ค่ะ', 'error'); } 
                 finally { btn.innerHTML = 'ส่งข้อมูลลงทะเบียน <i class="fa-solid fa-arrow-right ml-1"></i>'; btn.disabled = false; }
@@ -633,7 +605,12 @@
         // --- ระบบแอดมินและการจัดการสต็อก ---
         async function promptAdminLogin() {
             const { value: pass } = await Swal.fire({
-                title: 'เข้าสู่ระบบแอดมิน', input: 'password', confirmButtonColor: '#f06292', showCancelButton: true, cancelButtonText: 'ยกเลิก'
+                title: 'เข้าสู่ระบบแอดมิน', 
+                html: '<i class="fa-solid fa-user-shield text-cutie-500 text-3xl mb-2"></i>',
+                input: 'password', 
+                confirmButtonColor: '#f06292', 
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก'
             });
             if (pass === ADMIN_PASSWORD) { switchPage('admin'); } 
             else if (pass) { Swal.fire({ icon: 'error', title: 'รหัสผ่านไม่ถูกต้อง' }); }
@@ -660,10 +637,9 @@
             } catch (e) { Swal.fire('ผิดพลาด', 'บันทึกไม่สำเร็จ', 'error'); }
         }
 
-        // --- เพิ่ม/แก้ไข/ลบ สินค้าแบบเรียลไทม์ ---
         function renderAdminProductList() {
             const listContainer = document.getElementById('admin-product-list');
-            if (storeProducts.length === 0) { listContainer.innerHTML = '<p class="text-xs text-gray-400 text-center">ยังไม่มีสินค้า</p>'; return; }
+            if (storeProducts.length === 0) { listContainer.innerHTML = '<p class="text-xs text-gray-400 text-center">ยังไม่มีสินค้าในสต็อก</p>'; return; }
             
             listContainer.innerHTML = storeProducts.map(p => {
                 if(!p['ชื่อสินค้า']) return '';
@@ -729,7 +705,7 @@
                 await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: action, data: payload }) });
                 Swal.fire('สำเร็จ', 'อัปเดตสต็อกเรียบร้อย', 'success').then(() => {
                     resetAdminProductForm(); 
-                    loadInitialData(); // โหลดข้อมูลสดๆใหม่แบบไม่ต้องรีเฟรชหน้า
+                    loadInitialData(); 
                 });
             } catch (e) { Swal.fire('ผิดพลาด', 'บันทึกไม่สำเร็จ', 'error'); }
         }
@@ -743,7 +719,7 @@
                     Swal.fire({ title: 'กำลังลบ...', didOpen: () => Swal.showLoading() });
                     try {
                         await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: "deleteProduct", data: { id: id } }) });
-                        Swal.fire('สำเร็จ', 'ลบสินค้าเรียบร้อย', 'success').then(() => loadInitialData()); // โหลดใหม่ทันที
+                        Swal.fire('สำเร็จ', 'ลบสินค้าเรียบร้อย', 'success').then(() => loadInitialData()); 
                     } catch (e) { Swal.fire('ผิดพลาด', 'ลบไม่สำเร็จ', 'error'); }
                 }
             });
