@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BellByPhone - Mobile Ministore</title>
+    <title>BellByPhone - ร้านผ่อนมือถือน่ารัก</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -24,14 +24,14 @@
                         heading: ['Prompt', 'sans-serif']
                     },
                     colors: {
-                        pastel: {
-                            50: '#fff5f8', // สีพื้นหลังหลัก
+                        cutie: {
+                            50: '#fff0f5', // ชมพูอ่อนสุด
                             100: '#ffe4e8',
                             200: '#ffcdd2',
-                            300: '#f48fb1',
-                            400: '#f06292', // สีหลัก
-                            500: '#e91e63',
-                            600: '#d81b60'
+                            300: '#ffb6c1',
+                            400: '#ff85a2', // ชมพูน่ารัก
+                            500: '#f06292', // ชมพูหลัก
+                            600: '#e91e63'
                         }
                     }
                 }
@@ -40,184 +40,198 @@
     </script>
 
     <style>
+        /* พื้นหลังไล่สีพาสเทลน่ารักๆ */
         body { 
-            background-color: #fff5f8; 
-            color: #333333;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4e8 100%);
+            color: #4a4a4a;
+            min-height: 100vh;
             -ms-overflow-style: none;  
             scrollbar-width: none;  
         }
         body::-webkit-scrollbar { display: none; }
 
-        /* การ์ดสไตล์ Minimal */
-        .card-minimal {
+        /* การ์ดสไตล์ Cutie Premium */
+        .card-cutie {
             background: #ffffff;
-            border-radius: 1.5rem;
-            box-shadow: 0 4px 20px rgba(240, 98, 146, 0.08);
-            transition: all 0.3s ease;
+            border-radius: 1.8rem;
+            box-shadow: 0 10px 25px rgba(240, 98, 146, 0.08);
+            border: 2px solid #ffffff;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .card-minimal:hover {
-            box-shadow: 0 8px 30px rgba(240, 98, 146, 0.15);
-            transform: translateY(-2px);
-        }
-
-        /* Glassmorphism เบาๆ สำหรับ Navbar */
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(255, 228, 232, 0.5);
+        .card-cutie:hover {
+            box-shadow: 0 15px 35px rgba(240, 98, 146, 0.15);
+            transform: translateY(-5px);
+            border-color: #ffe4e8;
         }
 
-        /* Animation Fade In */
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Glassmorphism ขาวขุ่น */
+        .glass-header {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
         }
 
-        /* Input สไตล์มินิมอล */
-        .input-minimal {
+        /* Input โค้งมน */
+        .input-cutie {
             width: 100%;
-            padding: 0.8rem 1rem;
-            border-radius: 1rem;
-            border: 1px solid #ffcdd2;
+            padding: 0.9rem 1.2rem;
+            border-radius: 1.5rem;
+            border: 2px solid #ffe4e8;
             outline: none;
             background: #ffffff;
-            font-family: 'Kanit', sans-serif;
-            transition: all 0.2s;
+            text-align: center; /* ให้ข้อความอยู่ตรงกลาง */
+            transition: all 0.3s;
         }
-        .input-minimal:focus {
-            border-color: #f06292;
-            box-shadow: 0 0 0 3px rgba(240, 98, 146, 0.1);
+        .input-cutie:focus {
+            border-color: #ff85a2;
+            box-shadow: 0 0 0 4px rgba(255, 133, 162, 0.15);
         }
+        /* ถ้าเป็น Dropdown ไม่ต้อง center ก็ได้ แต่อยากให้อยู่กลางก็ใส่ได้ */
+        select.input-cutie { text-align-last: center; }
 
-        /* ปุ่มกด */
-        .btn-primary {
-            background-color: #f06292;
+        /* ปุ่ม Cutie */
+        .btn-cutie {
+            background: linear-gradient(to right, #ff85a2, #f06292);
             color: white;
-            border-radius: 1rem;
-            padding: 0.8rem 1.5rem;
+            border-radius: 2rem;
+            padding: 0.9rem 1.5rem;
             font-family: 'Prompt', sans-serif;
             font-weight: 500;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(240, 98, 146, 0.3);
         }
-        .btn-primary:hover { background-color: #e91e63; }
+        .btn-cutie:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(240, 98, 146, 0.4); }
         
         .btn-outline {
-            background-color: transparent;
+            background-color: white;
             color: #f06292;
-            border: 1px solid #f06292;
-            border-radius: 1rem;
-            padding: 0.8rem 1.5rem;
+            border: 2px solid #f06292;
+            border-radius: 2rem;
+            padding: 0.9rem 1.5rem;
             font-family: 'Prompt', sans-serif;
             font-weight: 500;
-            transition: all 0.2s;
+            transition: all 0.3s;
         }
-        .btn-outline:hover { background-color: #fff5f8; }
+        .btn-outline:hover { background-color: #fff0f5; }
 
-        /* แบนเนอร์อัตราส่วน 1200x400 (3:1) */
-        .banner-container {
+        /* แบนเนอร์ 1200x400 */
+        .banner-box {
             aspect-ratio: 3 / 1;
             width: 100%;
             overflow: hidden;
-            border-radius: 1.5rem;
+            border-radius: 1.8rem;
             position: relative;
+            box-shadow: 0 10px 20px rgba(240, 98, 146, 0.1);
         }
+
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="antialiased min-h-screen relative pb-24">
+<body class="antialiased pb-28">
 
-    <header class="glass-nav sticky top-0 z-40 p-4 flex justify-between items-center w-full">
-        <div class="max-w-4xl mx-auto w-full flex justify-between items-center px-2">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="switchPage('home')">
-                <div class="w-10 h-10 bg-pastel-100 rounded-full flex items-center justify-center text-pastel-500 text-lg">
-                    <i class="fa-solid fa-mobile-screen"></i>
+    <header class="glass-header sticky top-0 z-40 p-3 w-full shadow-sm">
+        <div class="max-w-3xl mx-auto w-full flex justify-center items-center relative h-12">
+            <div class="flex items-center gap-2 cursor-pointer hover:scale-105 transition" onclick="switchPage('home')">
+                <div class="w-10 h-10 bg-cutie-100 rounded-full flex items-center justify-center text-cutie-500 text-xl shadow-inner">
+                    <i class="fa-solid fa-heart"></i>
                 </div>
-                <div>
-                    <h1 class="font-heading text-xl font-semibold text-pastel-600 leading-tight">BellByPhone</h1>
-                    <p class="text-[10px] text-pastel-400 font-medium tracking-wide">MINIMAL MINISTORE</p>
+                <div class="text-center">
+                    <h1 class="font-heading text-xl font-semibold text-cutie-600 leading-tight">BellByPhone</h1>
+                    <p class="text-[9px] text-cutie-400 font-medium tracking-widest uppercase">Premium Store</p>
                 </div>
             </div>
-            <button onclick="showContactInfo()" class="text-pastel-400 hover:text-pastel-600 transition text-xl">
-                <i class="fa-brands fa-line"></i>
-            </button>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto w-full px-4 pt-6" id="main-content">
+    <main class="max-w-3xl mx-auto w-full px-4 pt-6" id="main-content">
         </main>
 
-    <nav class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[85%] max-w-sm bg-white rounded-2xl shadow-[0_10px_40px_rgba(240,98,146,0.15)] px-6 py-3 flex justify-between items-center z-40 border border-pastel-50">
-        <button onclick="switchPage('home')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-pastel-500 transition w-16">
-            <i class="fa-solid fa-house text-lg"></i>
-            <span class="text-[10px] font-medium">หน้าแรก</span>
+    <nav class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[85%] max-w-sm bg-white/90 backdrop-blur-md rounded-full shadow-[0_10px_40px_rgba(240,98,146,0.2)] px-8 py-3 flex justify-between items-center z-40 border-2 border-cutie-50">
+        <button onclick="switchPage('home')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-cutie-500 transition w-16">
+            <i class="fa-solid fa-store text-xl"></i>
+            <span class="text-[10px] font-medium">หน้าร้าน</span>
         </button>
-        <button onclick="switchPage('payment')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-pastel-500 transition w-16">
-            <i class="fa-solid fa-receipt text-lg"></i>
-            <span class="text-[10px] font-medium">ส่งยอด</span>
+        <button onclick="openLine()" class="flex flex-col items-center gap-1 text-gray-400 hover:text-cutie-500 transition w-16">
+            <div class="bg-cutie-100 p-2 rounded-full text-cutie-500 -mt-6 shadow-md border-4 border-white">
+                <i class="fa-solid fa-comment-dots text-xl"></i>
+            </div>
+            <span class="text-[10px] font-medium">ติดต่อ</span>
         </button>
-        <button onclick="promptAdminLogin()" class="flex flex-col items-center gap-1 text-gray-400 hover:text-pastel-500 transition w-16">
-            <i class="fa-solid fa-gear text-lg"></i>
-            <span class="text-[10px] font-medium">ตั้งค่า</span>
+        <button onclick="promptAdminLogin()" class="flex flex-col items-center gap-1 text-gray-400 hover:text-cutie-500 transition w-16">
+            <i class="fa-solid fa-shield-cat text-xl"></i>
+            <span class="text-[10px] font-medium">แอดมิน</span>
         </button>
     </nav>
 
     <div id="templates" class="hidden">
 
         <div id="tpl-home" class="fade-in">
-            <div class="banner-container shadow-md mb-8 bg-white">
-                <div id="main-banner-slider" class="w-full h-full relative transition-transform duration-500">
-                    </div>
+            <div class="banner-box mb-4 bg-white">
+                <div id="main-banner-slider" class="w-full h-full relative transition-transform duration-500"></div>
             </div>
 
-            <div class="mb-4 px-2">
-                <h2 class="text-lg font-heading font-semibold text-gray-800 border-l-4 border-pastel-400 pl-3">สินค้าทั้งหมด</h2>
+            <div class="banner-box mb-8 bg-cutie-50 cursor-pointer hover:scale-[1.02] transition shadow-cutie-200 shadow-lg border-2 border-white" onclick="openPaymentLink()">
+                <img id="home-payment-banner" src="" alt="ส่งยอด" class="w-full h-full object-cover">
+                <div class="absolute top-2 right-2 bg-white text-cutie-500 text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
+                    <i class="fa-solid fa-hand-pointer animate-pulse"></i> กดส่งยอดที่นี่
+                </div>
             </div>
 
-            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 pb-10">
+            <div class="text-center mb-6">
+                <h2 class="inline-block px-6 py-2 bg-white rounded-full font-heading font-semibold text-cutie-600 shadow-sm border border-cutie-100">
+                    <i class="fa-solid fa-mobile-screen-button text-cutie-400 mr-2"></i> สินค้าทั้งหมด
+                </h2>
+            </div>
+
+            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 pb-12">
                 </div>
         </div>
 
-        <div id="tpl-register" class="fade-in">
-            <div class="card-minimal p-6 mb-10">
-                <h2 class="text-xl font-heading font-semibold text-pastel-600 mb-6 border-b border-pastel-100 pb-3">ข้อมูลสำหรับลงทะเบียน</h2>
+        <div id="tpl-register" class="fade-in pb-12">
+            <div class="card-cutie p-8 text-center mb-10">
+                <div class="w-16 h-16 bg-cutie-100 rounded-full flex items-center justify-center text-cutie-500 text-2xl mx-auto mb-4">
+                    <i class="fa-solid fa-clipboard-user"></i>
+                </div>
+                <h2 class="text-xl font-heading font-semibold text-cutie-600 mb-6">กรอกข้อมูลลงทะเบียน</h2>
                 
-                <form id="reg-form" onsubmit="submitRegistration(event)" class="space-y-4">
+                <form id="reg-form" onsubmit="submitRegistration(event)" class="space-y-4 text-left">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm text-gray-600 mb-1">ชื่อจริง (ภาษาไทย)</label>
-                            <input type="text" id="reg-firstname" required class="input-minimal">
+                            <label class="block text-sm text-center text-gray-500 mb-1">ชื่อจริง (ไทย)</label>
+                            <input type="text" id="reg-firstname" required class="input-cutie">
                         </div>
                         <div>
-                            <label class="block text-sm text-gray-600 mb-1">นามสกุล (ภาษาไทย)</label>
-                            <input type="text" id="reg-lastname" required class="input-minimal">
+                            <label class="block text-sm text-center text-gray-500 mb-1">นามสกุล (ไทย)</label>
+                            <input type="text" id="reg-lastname" required class="input-cutie">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-sm text-gray-600 mb-1">เบอร์โทรศัพท์</label>
-                        <input type="tel" id="reg-phone" required maxlength="10" class="input-minimal">
+                        <label class="block text-sm text-center text-gray-500 mb-1">เบอร์โทรศัพท์ติดต่อ</label>
+                        <input type="tel" id="reg-phone" required maxlength="10" class="input-cutie">
                     </div>
                     <div>
-                        <label class="block text-sm text-gray-600 mb-1">เลขประจำตัวประชาชน (13 หลัก)</label>
-                        <input type="text" id="reg-idcard" required maxlength="13" class="input-minimal">
+                        <label class="block text-sm text-center text-gray-500 mb-1">เลขประจำตัวประชาชน (13 หลัก)</label>
+                        <input type="text" id="reg-idcard" required maxlength="13" class="input-cutie">
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm text-gray-600 mb-1">วัน/เดือน/ปีเกิด</label>
-                            <input type="date" id="reg-dob" required class="input-minimal text-gray-500">
+                            <label class="block text-sm text-center text-gray-500 mb-1">วันเกิด</label>
+                            <input type="date" id="reg-dob" required class="input-cutie text-gray-500">
                         </div>
                         <div>
-                            <label class="block text-sm text-gray-600 mb-1">อายุ (ปี)</label>
-                            <input type="number" id="reg-age" required min="15" class="input-minimal">
+                            <label class="block text-sm text-center text-gray-500 mb-1">อายุ (ปี)</label>
+                            <input type="number" id="reg-age" required min="15" class="input-cutie">
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm text-gray-600 mb-1">จังหวัด</label>
-                            <input type="text" id="reg-province" required class="input-minimal">
+                            <label class="block text-sm text-center text-gray-500 mb-1">จังหวัด</label>
+                            <input type="text" id="reg-province" required class="input-cutie">
                         </div>
                         <div>
-                            <label class="block text-sm text-gray-600 mb-1">เพศ</label>
-                            <select id="reg-gender" class="input-minimal">
+                            <label class="block text-sm text-center text-gray-500 mb-1">เพศ</label>
+                            <select id="reg-gender" class="input-cutie">
                                 <option value="ชาย">ชาย</option>
                                 <option value="หญิง">หญิง</option>
                                 <option value="อื่นๆ">อื่นๆ</option>
@@ -225,90 +239,75 @@
                         </div>
                     </div>
                     
-                    <div class="mt-4">
-                        <label class="block text-sm text-gray-600 mb-2">รูปถ่ายบัตรประชาชน (สำหรับตรวจสอบ)</label>
-                        <input type="file" id="reg-file" accept="image/*" required class="input-minimal !p-2 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-pastel-50 file:text-pastel-600 cursor-pointer">
+                    <div class="mt-6 p-4 border-2 border-dashed border-cutie-200 rounded-2xl bg-cutie-50 text-center">
+                        <label class="block text-sm text-cutie-600 mb-3"><i class="fa-regular fa-image"></i> แนบรูปบัตรประชาชน</label>
+                        <input type="file" id="reg-file" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-white file:text-cutie-500 file:shadow-sm cursor-pointer mx-auto">
                     </div>
 
                     <div class="flex gap-3 pt-6">
-                        <button type="button" onclick="switchPage('home')" class="btn-outline w-1/3">ย้อนกลับ</button>
-                        <button type="submit" id="reg-submit-btn" class="btn-primary w-2/3">ยืนยันลงทะเบียน</button>
+                        <button type="button" onclick="switchPage('home')" class="btn-outline w-1/3">กลับ</button>
+                        <button type="submit" id="reg-submit-btn" class="btn-cutie w-2/3">ยืนยันลงทะเบียน</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div id="tpl-payment" class="fade-in">
-            <div class="banner-container shadow-md mb-6 bg-white">
-                <img id="payment-banner-img" src="" alt="แบนเนอร์ส่งยอด" class="w-full h-full object-cover">
+        <div id="tpl-admin" class="fade-in pb-12">
+            <div class="text-center mb-6">
+                <h2 class="inline-block px-6 py-2 bg-white rounded-full font-heading font-semibold text-gray-700 shadow-sm border border-gray-100">
+                    <i class="fa-solid fa-gears text-cutie-400 mr-2"></i> ระบบจัดการหลังบ้าน
+                </h2>
             </div>
             
-            <div class="card-minimal p-8 text-center mb-10">
-                <div class="w-14 h-14 bg-pastel-100 rounded-full flex items-center justify-center text-pastel-500 text-2xl mx-auto mb-4">
-                    <i class="fa-solid fa-file-invoice-dollar"></i>
-                </div>
-                <h2 class="text-xl font-heading font-semibold text-gray-800 mb-2">แจ้งสลิปส่งยอด</h2>
-                <p class="text-sm text-gray-500 mb-8">กดปุ่มด้านล่างเพื่อส่งสลิปการโอนเงินผ่านทาง LINE Official ของทางร้านนะคะ</p>
-                <button onclick="openLine()" class="btn-primary w-full max-w-xs mx-auto flex justify-center items-center gap-2">
-                    <i class="fa-brands fa-line text-xl"></i> ส่งยอดผ่าน LINE
-                </button>
-            </div>
-        </div>
-
-        <div id="tpl-admin" class="fade-in">
-            <h2 class="text-xl font-heading font-semibold text-pastel-600 mb-4 border-l-4 border-pastel-400 pl-3">ระบบจัดการหลังบ้าน</h2>
-            
-            <div class="card-minimal p-5 mb-6">
+            <div class="card-cutie p-6 mb-8 text-center">
                 <h3 class="font-heading text-md font-medium text-gray-800 mb-4 pb-2 border-b border-gray-100">ตั้งค่าเว็บไซต์</h3>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-xs text-gray-500 mb-1">รูปลิงก์แบนเนอร์หลัก (1200x400)</label>
-                        <textarea id="adm-main-banner" class="input-minimal text-sm" rows="2" placeholder="หากมีหลายรูปคั่นด้วย ,"></textarea>
+                        <label class="block text-xs text-gray-500 mb-1">รูปลิงก์แบนเนอร์หลัก (คั่นด้วย ,)</label>
+                        <textarea id="adm-main-banner" class="input-cutie text-sm" rows="2"></textarea>
                     </div>
                     <div>
-                        <label class="block text-xs text-gray-500 mb-1">รูปลิงก์แบนเนอร์หน้าส่งยอด (1200x400)</label>
-                        <input type="text" id="adm-pay-banner" class="input-minimal text-sm">
+                        <label class="block text-xs text-gray-500 mb-1">รูปลิงก์แบนเนอร์หน้าส่งยอด</label>
+                        <input type="text" id="adm-pay-banner" class="input-cutie text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">ลิงก์เมื่อกดแบนเนอร์ส่งยอด (เช่น LINE)</label>
+                        <input type="text" id="adm-pay-link" class="input-cutie text-sm">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">ข้อความ Popup ตอนเปิดเว็บ</label>
-                        <input type="text" id="adm-popup" class="input-minimal text-sm">
+                        <input type="text" id="adm-popup" class="input-cutie text-sm">
                     </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">ลิงก์ Facebook</label>
-                            <input type="text" id="adm-fb" class="input-minimal text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">ลิงก์ LINE Official</label>
-                            <input type="text" id="adm-line" class="input-minimal text-sm">
-                        </div>
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">ลิงก์ LINE Official ร้าน</label>
+                        <input type="text" id="adm-line" class="input-cutie text-sm">
                     </div>
-                    <button onclick="adminSaveSettings()" class="w-full bg-gray-800 text-white rounded-xl py-3 font-heading text-sm hover:bg-gray-900 transition">บันทึกการตั้งค่าเว็บ</button>
+                    <button onclick="adminSaveSettings()" class="w-full bg-gray-800 text-white rounded-full py-3 font-heading text-sm hover:bg-black transition">บันทึกการตั้งค่า</button>
                 </div>
             </div>
 
-            <div class="card-minimal p-5 mb-10">
+            <div class="card-cutie p-6 mb-8 text-center">
                 <h3 class="font-heading text-md font-medium text-gray-800 mb-4 pb-2 border-b border-gray-100">เพิ่มสินค้าใหม่</h3>
                 <div class="space-y-4">
-                    <input type="text" id="adm-prod-name" placeholder="ชื่อสินค้า (เช่น iPhone 15)" class="input-minimal text-sm">
-                    <input type="text" id="adm-prod-img" placeholder="ลิงก์รูปภาพสินค้า" class="input-minimal text-sm">
+                    <input type="text" id="adm-prod-name" placeholder="ชื่อสินค้า (เช่น iPhone 15)" class="input-cutie text-sm">
+                    <input type="text" id="adm-prod-img" placeholder="ลิงก์รูปภาพสินค้า" class="input-cutie text-sm">
                     <div class="grid grid-cols-2 gap-3">
-                        <input type="text" id="adm-prod-cat" placeholder="หมวดหมู่ (Apple/Samsung)" class="input-minimal text-sm">
-                        <input type="text" id="adm-prod-storage" placeholder="ความจุ (128GB, 256GB)" class="input-minimal text-sm">
+                        <input type="text" id="adm-prod-cat" placeholder="หมวดหมู่" class="input-cutie text-sm">
+                        <input type="text" id="adm-prod-storage" placeholder="ความจุ (เช่น 128GB, 256GB)" class="input-cutie text-sm">
                     </div>
                     <div class="grid grid-cols-2 gap-3">
-                        <input type="text" id="adm-prod-color" placeholder="สี (ระบุได้หลายสีคั่นด้วย ,)" class="input-minimal text-sm">
-                        <select id="adm-prod-type" class="input-minimal text-sm">
+                        <input type="text" id="adm-prod-color" placeholder="สี (เช่น ชมพู, ฟ้า)" class="input-cutie text-sm">
+                        <select id="adm-prod-type" class="input-cutie text-sm">
                             <option value="เปิดให้เลือกทั้ง 2 แบบ">เลือกได้ทั้ง 2 แบบ</option>
-                            <option value="ผ่อนไปใช้ไป">ผ่อนไปใช้ไป เท่านั้น</option>
-                            <option value="ผ่อนจบรับของ">ผ่อนจบรับของ เท่านั้น</option>
+                            <option value="ผ่อนไปใช้ไป">บังคับผ่อนไปใช้ไป</option>
+                            <option value="ผ่อนจบรับของ">บังคับผ่อนจบรับของ</option>
                         </select>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
-                        <input type="number" id="adm-prod-price" placeholder="ราคาเต็ม (บาท)" class="input-minimal text-sm">
-                        <input type="number" id="adm-prod-down" placeholder="ดาวน์เริ่มต้น (บาท)" class="input-minimal text-sm">
+                        <input type="number" id="adm-prod-price" placeholder="ราคาเต็ม (บาท)" class="input-cutie text-sm">
+                        <input type="number" id="adm-prod-down" placeholder="ดาวน์เริ่มต้น (บาท)" class="input-cutie text-sm">
                     </div>
-                    <button onclick="adminAddProduct()" class="w-full bg-pastel-500 text-white rounded-xl py-3 font-heading text-sm hover:bg-pastel-600 transition">เพิ่มลงสต็อก</button>
+                    <button onclick="adminAddProduct()" class="w-full bg-cutie-500 text-white rounded-full py-3 font-heading text-sm hover:bg-cutie-600 transition shadow-md">เพิ่มลงสต็อก</button>
                 </div>
             </div>
         </div>
@@ -316,75 +315,75 @@
     </div>
 
     <div id="product-modal" class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center fade-in">
-        <div class="bg-white w-full sm:w-auto sm:max-w-md rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto pb-6 relative shadow-2xl">
+        <div class="bg-white w-full sm:w-auto sm:max-w-md rounded-t-[2.5rem] sm:rounded-3xl max-h-[90vh] overflow-y-auto pb-6 relative shadow-2xl border-4 border-white">
             
-            <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-100 text-gray-500 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-200 transition z-10">
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-cutie-50 text-cutie-400 w-10 h-10 rounded-full flex items-center justify-center hover:bg-cutie-100 transition z-10 shadow-sm">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             
-            <div class="p-6 pb-2 flex justify-center mt-2">
-                <img id="modal-img" src="" class="h-44 object-contain">
+            <div class="p-6 pb-2 flex justify-center mt-4">
+                <img id="modal-img" src="" class="h-48 object-contain drop-shadow-md transition transform hover:scale-105">
             </div>
             
             <div class="px-6 space-y-5">
-                <div class="text-center border-b border-gray-100 pb-4">
-                    <h3 id="modal-title" class="text-xl font-heading font-medium text-gray-800 mb-2"></h3>
+                <div class="text-center border-b border-gray-100 pb-5">
+                    <h3 id="modal-title" class="text-2xl font-heading font-semibold text-gray-800 mb-2"></h3>
                     <div class="flex justify-center gap-3 text-sm">
-                        <span class="text-gray-500">ราคา <span id="modal-price" class="font-medium text-gray-800"></span> ฿</span>
-                        <span class="text-pastel-500 font-medium bg-pastel-50 px-2 py-0.5 rounded">ดาวน์ <span id="modal-down"></span> ฿</span>
+                        <span class="text-gray-500">ราคาเต็ม <span id="modal-price" class="font-medium text-gray-800"></span> ฿</span>
+                        <span class="text-cutie-600 font-bold bg-cutie-100 px-3 py-1 rounded-full shadow-sm">ดาวน์ <span id="modal-down"></span> ฿</span>
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-sm text-gray-600 mb-2">รูปแบบการผ่อน</label>
+                <div class="text-center">
+                    <label class="block text-sm text-gray-500 mb-2">เลือกรูปแบบการผ่อน</label>
                     <div class="grid grid-cols-2 gap-2">
-                        <button onclick="selectInstallmentType('ผ่อนไปใช้ไป')" id="btn-type-use" class="border border-pastel-400 bg-pastel-50 text-pastel-600 py-2 rounded-xl text-sm font-medium transition">ผ่อนไปใช้ไป</button>
-                        <button onclick="selectInstallmentType('ผ่อนจบรับของ')" id="btn-type-end" class="border border-gray-200 text-gray-500 bg-white py-2 rounded-xl text-sm font-medium transition">ผ่อนจบรับของ</button>
+                        <button onclick="selectInstallmentType('ผ่อนไปใช้ไป')" id="btn-type-use" class="border-2 border-cutie-400 bg-cutie-50 text-cutie-600 py-3 rounded-2xl text-sm font-medium transition">ผ่อนไปใช้ไป</button>
+                        <button onclick="selectInstallmentType('ผ่อนจบรับของ')" id="btn-type-end" class="border-2 border-gray-100 text-gray-400 bg-white py-3 rounded-2xl text-sm font-medium transition">ผ่อนจบรับของ</button>
                     </div>
-                    <p id="type-desc" class="text-xs text-gray-500 mt-2 bg-gray-50 p-2 rounded-lg"></p>
+                    <p id="type-desc" class="text-xs text-gray-500 mt-2 bg-gray-50 p-2 rounded-xl border border-gray-100"></p>
                 </div>
 
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-3 text-center">
                     <div>
-                        <label class="block text-sm text-gray-600 mb-1">ความจุ</label>
-                        <select id="sel-storage" class="input-minimal !p-2 text-sm"></select>
+                        <label class="block text-sm text-gray-500 mb-1">ความจุ</label>
+                        <select id="sel-storage" class="input-cutie !p-2 text-sm"></select>
                     </div>
                     <div>
-                        <label class="block text-sm text-gray-600 mb-1">สี</label>
-                        <select id="sel-color" class="input-minimal !p-2 text-sm"></select>
+                        <label class="block text-sm text-gray-500 mb-1">สีเครื่อง</label>
+                        <select id="sel-color" class="input-cutie !p-2 text-sm"></select>
                     </div>
                 </div>
 
-                <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
-                    <label class="block text-sm font-medium text-gray-800 mb-3">คำนวณยอดส่ง</label>
-                    <div class="space-y-3">
-                        <select id="calc-cycle" onchange="calculateInstallment()" class="input-minimal !p-2 text-sm bg-white">
+                <div class="bg-cutie-50 border-2 border-cutie-100 p-5 rounded-3xl text-center">
+                    <label class="block text-sm font-bold text-cutie-600 mb-3"><i class="fa-solid fa-calculator"></i> คำนวณยอดส่ง</label>
+                    <div class="space-y-4">
+                        <select id="calc-cycle" onchange="calculateInstallment()" class="input-cutie !p-2 text-sm bg-white border-white">
                             <option value="รายเดือน">ส่งรายเดือน</option>
                             <option value="รายสัปดาห์">ส่งรายสัปดาห์</option>
                             <option value="รายวัน">ส่งรายวัน</option>
                         </select>
                         <div>
-                            <div class="flex justify-between text-xs text-gray-500 mb-1">
+                            <div class="flex justify-between text-xs text-gray-500 mb-1 px-2">
                                 <span>ยอดส่งต่อรอบ (บาท)</span>
-                                <span>ขั้นต่ำ 350.-</span>
+                                <span class="text-cutie-400">ขั้นต่ำ 350.-</span>
                             </div>
-                            <input type="number" id="calc-amount" min="350" value="1000" oninput="calculateInstallment()" class="input-minimal !p-2 text-pastel-600 font-medium bg-white">
+                            <input type="number" id="calc-amount" min="350" value="1000" oninput="calculateInstallment()" class="input-cutie !p-3 text-xl text-cutie-600 font-bold bg-white border-white shadow-sm">
                         </div>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-xs text-gray-500">ระยะเวลาประมาณ</span>
-                            <span id="calc-duration" class="text-sm font-medium text-pastel-600"></span>
+                        <div class="flex justify-between items-center bg-white p-3 rounded-2xl border border-cutie-100">
+                            <span class="text-xs text-gray-500 font-medium">ระยะเวลาผ่อนประมาณ</span>
+                            <span id="calc-duration" class="text-sm font-bold text-cutie-600 bg-cutie-50 px-3 py-1 rounded-full"></span>
                         </div>
                     </div>
                 </div>
 
-                <button onclick="confirmProductToRegister()" class="btn-primary w-full text-base py-3">ทำรายการต่อ</button>
+                <button onclick="confirmProductToRegister()" class="btn-cutie w-full text-lg py-3 shadow-lg">ยืนยันทำรายการต่อ <i class="fa-solid fa-arrow-right text-sm ml-1"></i></button>
             </div>
         </div>
     </div>
 
 
     <script>
-        // ใส่ลิงก์ GAS Web App URL ที่ Deploy ไว้
+        // นำลิงก์ GAS Web App มาใส่ตรงนี้
         const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyT-ZVfmWVto7Ig15J2Sm26JGZjgyJv15i5i_ywp_Wq-p_XwoGQCywnoPgGQ-q_Dgrw/exec";
         const ADMIN_PASSWORD = "bellbyphone01";
 
@@ -392,9 +391,9 @@
         let storeSettings = {
             bannerUrls: "https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=1200", // แบนเนอร์หลัก
             paymentBannerUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200", // แบนเนอร์ส่งยอด
-            welcomePopup: "ยินดีต้อนรับสู่ BellByPhone ค่ะ",
-            lineUrl: "https://line.me/ti/p/~",
-            fbUrl: "https://facebook.com/"
+            paymentBannerLink: "https://line.me/ti/p/~", // ลิงก์ตอนกดแบนเนอร์ส่งยอด
+            welcomePopup: "ยินดีต้อนรับสู่ BellByPhone ค่ะ ✨",
+            lineUrl: "https://line.me/ti/p/~"
         };
         
         let selectedProductInfo = {}; 
@@ -406,6 +405,7 @@
             showWelcomePopup();
         };
 
+        // ฟังก์ชันเปลี่ยนหน้า
         function switchPage(pageId) {
             const mainContent = document.getElementById('main-content');
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -415,10 +415,6 @@
                 renderStoreHome();
             } else if (pageId === 'register') {
                 mainContent.innerHTML = document.getElementById('tpl-register').innerHTML;
-            } else if (pageId === 'payment') {
-                mainContent.innerHTML = document.getElementById('tpl-payment').innerHTML;
-                // เซ็ตแบนเนอร์แยกสำหรับหน้าส่งยอดโดยเฉพาะ
-                document.getElementById('payment-banner-img').src = storeSettings.paymentBannerUrl;
             } else if (pageId === 'admin') {
                 mainContent.innerHTML = document.getElementById('tpl-admin').innerHTML;
                 fillAdminSettings();
@@ -426,7 +422,7 @@
         }
 
         async function loadInitialData() {
-            Swal.fire({ title: 'กำลังโหลดข้อมูล...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+            Swal.fire({ title: 'กำลังโหลดข้อมูลร้าน...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
             try {
                 const response = await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: "getInitialData", data: {} }) });
                 const result = await response.json();
@@ -436,7 +432,9 @@
                         storeSettings = { ...storeSettings, ...result.settings };
                     }
                     Swal.close();
-                    renderStoreHome(); 
+                    if(document.getElementById('tpl-home').innerHTML === document.getElementById('main-content').innerHTML) {
+                        renderStoreHome();
+                    }
                 }
             } catch (error) {
                 Swal.fire('ข้อผิดพลาด', 'ไม่สามารถเชื่อมต่อฐานข้อมูลได้', 'error');
@@ -444,6 +442,7 @@
         }
 
         function renderStoreHome() {
+            // เรนเดอร์แบนเนอร์หลัก (สไลด์)
             const slider = document.getElementById('main-banner-slider');
             if(slider) {
                 const banners = storeSettings.bannerUrls.split(',').map(u => u.trim()).filter(u => u !== "");
@@ -464,30 +463,46 @@
                 }
             }
 
+            // เรนเดอร์แบนเนอร์ส่งยอด
+            const payBannerImg = document.getElementById('home-payment-banner');
+            if(payBannerImg) {
+                payBannerImg.src = storeSettings.paymentBannerUrl;
+            }
+
+            // เรนเดอร์สินค้า
             const grid = document.getElementById('product-grid');
             if (storeProducts.length === 0) {
-                grid.innerHTML = `<div class="col-span-2 text-center text-gray-400 py-10 text-sm">ยังไม่มีสินค้าในสต็อก</div>`;
+                grid.innerHTML = `<div class="col-span-2 text-center text-gray-400 py-10 text-sm">ยังไม่มีสินค้าในสต็อกน้า</div>`;
                 return;
             }
 
             grid.innerHTML = storeProducts.map(p => {
                 if(!p['ชื่อสินค้า']) return ''; 
                 return `
-                <div class="card-minimal p-3 cursor-pointer" onclick="openProductDetail(${p['ID']})">
-                    <div class="bg-gray-50 rounded-xl p-2 mb-3 aspect-square flex items-center justify-center">
+                <div class="card-cutie p-4 cursor-pointer text-center" onclick="openProductDetail(${p['ID']})">
+                    <div class="bg-cutie-50 rounded-2xl p-3 mb-3 aspect-square flex items-center justify-center border border-cutie-100">
                         <img src="${p['รูปภาพ']}" alt="${p['ชื่อสินค้า']}" class="max-h-full object-contain">
                     </div>
                     <h3 class="font-medium text-sm text-gray-800 line-clamp-1 mb-1">${p['ชื่อสินค้า']}</h3>
-                    <div class="flex justify-between items-end mt-2">
-                        <div>
-                            <p class="text-[10px] text-gray-400">ดาวน์เริ่มต้น</p>
-                            <p class="text-pastel-500 font-medium text-sm">${Number(p['ดาวน์เริ่มต้น']).toLocaleString()} ฿</p>
-                        </div>
-                    </div>
+                    <p class="text-[10px] text-gray-400 mb-1">ดาวน์เริ่มต้น</p>
+                    <p class="text-cutie-500 font-bold text-sm bg-cutie-50 rounded-full py-1">${Number(p['ดาวน์เริ่มต้น']).toLocaleString()} ฿</p>
                 </div>`;
             }).join('');
         }
 
+        function openPaymentLink() {
+            if(storeSettings.paymentBannerLink) {
+                window.open(storeSettings.paymentBannerLink, '_blank');
+            }
+        }
+
+        function openLine() {
+            if(storeSettings.lineUrl) {
+                window.open(storeSettings.lineUrl, '_blank');
+            }
+        }
+
+        // --- ระบบเปิด Modal สินค้า ---
         function openProductDetail(productId) {
             const product = storeProducts.find(p => p['ID'] == productId);
             if(!product) return;
@@ -501,25 +516,19 @@
             populateSelect('sel-color', product['สี']);
 
             selectedProductInfo = {
-                name: product['ชื่อสินค้า'],
-                price: Number(product['ราคาเต็ม']),
-                down: Number(product['ดาวน์เริ่มต้น']),
-                allowType: product['ประเภทการผ่อน'] || 'เปิดให้เลือกทั้ง 2 แบบ'
+                name: product['ชื่อสินค้า'], price: Number(product['ราคาเต็ม']),
+                down: Number(product['ดาวน์เริ่มต้น']), allowType: product['ประเภทการผ่อน'] || 'เปิดให้เลือกทั้ง 2 แบบ'
             };
 
             const btnUse = document.getElementById('btn-type-use');
             const btnEnd = document.getElementById('btn-type-end');
-            
-            btnUse.style.display = 'block';
-            btnEnd.style.display = 'block';
+            btnUse.style.display = 'block'; btnEnd.style.display = 'block';
 
             if (selectedProductInfo.allowType === 'ผ่อนไปใช้ไป') {
                 btnEnd.style.display = 'none'; selectInstallmentType('ผ่อนไปใช้ไป');
             } else if (selectedProductInfo.allowType === 'ผ่อนจบรับของ') {
                 btnUse.style.display = 'none'; selectInstallmentType('ผ่อนจบรับของ');
-            } else {
-                selectInstallmentType('ผ่อนไปใช้ไป');
-            }
+            } else { selectInstallmentType('ผ่อนไปใช้ไป'); }
 
             calculateInstallment();
             document.getElementById('product-modal').classList.remove('hidden');
@@ -539,25 +548,24 @@
             const btnEnd = document.getElementById('btn-type-end');
             const desc = document.getElementById('type-desc');
 
-            const activeClass = "border border-pastel-400 bg-pastel-50 text-pastel-600".split(' ');
-            const inactiveClass = "border border-gray-200 text-gray-500 bg-white".split(' ');
+            const activeClass = "border-2 border-cutie-400 bg-cutie-50 text-cutie-600".split(' ');
+            const inactiveClass = "border-2 border-gray-100 text-gray-400 bg-white".split(' ');
 
             if(type === 'ผ่อนไปใช้ไป') {
                 btnUse.classList.remove(...inactiveClass); btnUse.classList.add(...activeClass);
                 btnEnd.classList.remove(...activeClass); btnEnd.classList.add(...inactiveClass);
-                desc.innerText = 'ได้รับสินค้าไปใช้เมื่อผ่อนถึง 30-55% ของราคาเครื่อง';
+                desc.innerText = 'ได้รับสินค้าไปใช้เมื่อผ่อนถึง 30-55% ของราคาเครื่องค่ะ';
             } else {
                 btnEnd.classList.remove(...inactiveClass); btnEnd.classList.add(...activeClass);
                 btnUse.classList.remove(...activeClass); btnUse.classList.add(...inactiveClass);
-                desc.innerText = 'ได้รับสินค้าเมื่อชำระยอดผ่อนครบ 100% ของราคาเครื่อง';
+                desc.innerText = 'ได้รับสินค้าเมื่อชำระยอดผ่อนครบ 100% ค่ะ';
             }
         }
 
         function calculateInstallment() {
             let amount = parseInt(document.getElementById('calc-amount').value);
             if (isNaN(amount) || amount < 350) {
-                document.getElementById('calc-duration').innerText = `ขั้นต่ำ 350`;
-                return;
+                document.getElementById('calc-duration').innerText = `ขั้นต่ำ 350 ฿`; return;
             }
             const cycleCount = Math.ceil((selectedProductInfo.price - selectedProductInfo.down) / amount);
             selectedProductInfo.amountPerCycle = amount;
@@ -568,7 +576,7 @@
 
         function confirmProductToRegister() {
             if (parseInt(document.getElementById('calc-amount').value) < 350) {
-                Swal.fire('แจ้งเตือน', 'ยอดส่งต้องขั้นต่ำ 350 บาทขึ้นไปค่ะ', 'warning'); return;
+                Swal.fire('แจ้งเตือน', 'ยอดส่งต้องขั้นต่ำ 350 บาทขึ้นไปนะคะ', 'warning'); return;
             }
             selectedProductInfo.storage = document.getElementById('sel-storage').value;
             selectedProductInfo.color = document.getElementById('sel-color').value;
@@ -576,13 +584,14 @@
             switchPage('register');
         }
 
+        // --- ระบบส่งฟอร์ม ---
         async function submitRegistration(e) {
             e.preventDefault();
             const btn = document.getElementById('reg-submit-btn');
-            btn.innerHTML = 'กำลังบันทึก...'; btn.disabled = true;
+            btn.innerHTML = 'กำลังบันทึกข้อมูล...'; btn.disabled = true;
 
             const file = document.getElementById('reg-file').files[0];
-            if(!file) { Swal.fire('แจ้งเตือน', 'กรุณาแนบรูปบัตรประชาชนค่ะ', 'warning'); btn.innerHTML = 'ยืนยันลงทะเบียน'; btn.disabled = false; return; }
+            if(!file) { Swal.fire('แจ้งเตือน', 'อย่าลืมแนบรูปบัตรประชาชนนะคะ', 'warning'); btn.innerHTML = 'ยืนยันลงทะเบียน'; btn.disabled = false; return; }
 
             const reader = new FileReader();
             reader.onload = async function() {
@@ -596,45 +605,40 @@
                     province: document.getElementById('reg-province').value,
                     gender: document.getElementById('reg-gender').value,
                     
-                    productName: selectedProductInfo.name || "-",
-                    storage: selectedProductInfo.storage || "-",
-                    color: selectedProductInfo.color || "-",
-                    price: selectedProductInfo.price || 0,
-                    downPayment: selectedProductInfo.down || 0,
-                    installmentType: selectedProductInfo.type || "-",
-                    cycle: selectedProductInfo.cycle || "-",
-                    amountPerCycle: selectedProductInfo.amountPerCycle || 0,
-                    duration: selectedProductInfo.duration || 0,
-                    
-                    fileBase64: reader.result.split(',')[1],
-                    mimeType: file.type
+                    productName: selectedProductInfo.name || "-", storage: selectedProductInfo.storage || "-",
+                    color: selectedProductInfo.color || "-", price: selectedProductInfo.price || 0,
+                    downPayment: selectedProductInfo.down || 0, installmentType: selectedProductInfo.type || "-",
+                    cycle: selectedProductInfo.cycle || "-", amountPerCycle: selectedProductInfo.amountPerCycle || 0,
+                    duration: selectedProductInfo.duration || 0, fileBase64: reader.result.split(',')[1], mimeType: file.type
                 };
 
                 try {
                     const res = await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: "register", data: payloadData }) });
                     const result = await res.json();
                     if(result.status === "success") {
-                        Swal.fire({ title: 'ลงทะเบียนสำเร็จ!', icon: 'success', confirmButtonColor: '#f06292' }).then(() => switchPage('payment'));
+                        Swal.fire({ title: 'ลงทะเบียนสำเร็จ! 💕', text: 'แอดมินได้รับข้อมูลแล้วค่ะ กดตกลงเพื่อไปหน้าส่งยอด', icon: 'success', confirmButtonColor: '#f06292' })
+                        .then(() => openPaymentLink()); // พอลงทะเบียนเสร็จ ให้เด้งไปลิงก์ส่งยอดเลย
                     } else { throw new Error(result.message); }
-                } catch (err) { Swal.fire('ผิดพลาด', 'ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่', 'error'); } 
+                } catch (err) { Swal.fire('ผิดพลาด', 'ส่งข้อมูลไม่สำเร็จ ลองใหม่อีกครั้งนะคะ', 'error'); } 
                 finally { btn.innerHTML = 'ยืนยันลงทะเบียน'; btn.disabled = false; }
             };
             reader.readAsDataURL(file);
         }
 
+        // --- ระบบแอดมิน ---
         async function promptAdminLogin() {
             const { value: pass } = await Swal.fire({
-                title: 'โหมดแอดมิน', input: 'password', confirmButtonColor: '#f06292', showCancelButton: true
+                title: 'เข้าสู่โหมดแอดมิน 👑', input: 'password', confirmButtonColor: '#f06292', showCancelButton: true
             });
             if (pass === ADMIN_PASSWORD) { switchPage('admin'); } 
-            else if (pass) { Swal.fire({ icon: 'error', title: 'รหัสไม่ถูกต้อง' }); }
+            else if (pass) { Swal.fire({ icon: 'error', title: 'รหัสผ่านไม่ถูกต้องค่ะ' }); }
         }
 
         function fillAdminSettings() {
             document.getElementById('adm-main-banner').value = storeSettings.bannerUrls || "";
             document.getElementById('adm-pay-banner').value = storeSettings.paymentBannerUrl || "";
+            document.getElementById('adm-pay-link').value = storeSettings.paymentBannerLink || "";
             document.getElementById('adm-popup').value = storeSettings.welcomePopup || "";
-            document.getElementById('adm-fb').value = storeSettings.fbUrl || "";
             document.getElementById('adm-line').value = storeSettings.lineUrl || "";
         }
 
@@ -642,14 +646,14 @@
             const payload = {
                 bannerUrls: document.getElementById('adm-main-banner').value,
                 paymentBannerUrl: document.getElementById('adm-pay-banner').value,
+                paymentBannerLink: document.getElementById('adm-pay-link').value,
                 welcomePopup: document.getElementById('adm-popup').value,
-                fbUrl: document.getElementById('adm-fb').value,
                 lineUrl: document.getElementById('adm-line').value
             };
             Swal.fire({ title: 'กำลังบันทึก...', didOpen: () => Swal.showLoading() });
             try {
                 await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: "saveSettings", data: payload }) });
-                Swal.fire('สำเร็จ', 'บันทึกตั้งค่าเรียบร้อย', 'success');
+                Swal.fire('สำเร็จ', 'บันทึกการตั้งค่าเรียบร้อย', 'success');
                 storeSettings = { ...storeSettings, ...payload };
             } catch (e) { Swal.fire('ผิดพลาด', 'บันทึกไม่สำเร็จ', 'error'); }
         }
@@ -657,7 +661,7 @@
         async function adminAddProduct() {
             const name = document.getElementById('adm-prod-name').value;
             const price = document.getElementById('adm-prod-price').value;
-            if(!name || !price) { Swal.fire('แจ้งเตือน', 'กรุณาใส่ชื่อและราคา', 'warning'); return; }
+            if(!name || !price) { Swal.fire('แจ้งเตือน', 'กรุณาใส่ชื่อและราคาด้วยนะคะ', 'warning'); return; }
 
             const payload = {
                 name: name, imageUrl: document.getElementById('adm-prod-img').value,
@@ -669,18 +673,16 @@
             Swal.fire({ title: 'กำลังเพิ่มสต็อก...', didOpen: () => Swal.showLoading() });
             try {
                 await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: "addProduct", data: payload }) });
-                Swal.fire('สำเร็จ', 'เพิ่มสินค้าเข้าสต็อกแล้ว รีเฟรชเพื่อดูผล', 'success');
+                Swal.fire('สำเร็จ', 'เพิ่มสินค้าเข้าสต็อกแล้ว รีเฟรชหน้าร้านเพื่อดูผล', 'success');
                 document.querySelectorAll('#tpl-admin input').forEach(el => el.value = ''); fillAdminSettings();
             } catch (e) { Swal.fire('ผิดพลาด', 'เพิ่มไม่สำเร็จ', 'error'); }
         }
 
         function showWelcomePopup() {
             if(storeSettings.welcomePopup) {
-                Swal.fire({ html: `<p class="font-heading text-lg text-gray-800">${storeSettings.welcomePopup}</p>`, confirmButtonText: 'เข้าสู่ร้านค้า', confirmButtonColor: '#f06292', backdrop: `rgba(0,0,0,0.4)` });
+                Swal.fire({ html: `<p class="font-heading text-xl text-cutie-600 font-medium">${storeSettings.welcomePopup}</p>`, confirmButtonText: 'เข้าร้านค้า', confirmButtonColor: '#f06292', backdrop: `rgba(255,228,232,0.6)` });
             }
         }
-        function showContactInfo() { window.open(storeSettings.lineUrl, '_blank'); }
-        function openLine() { window.open(storeSettings.lineUrl, '_blank'); }
     </script>
 </body>
 </html>
