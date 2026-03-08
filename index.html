@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PinkyPhone - ผ่อนโทรศัพท์สุดน่ารัก</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Kanit', 'sans-serif'] },
+                    colors: {
+                        pinky: { 50: '#fdf2f8', 100: '#fce7f3', 200: '#fbcfe8', 300: '#f9a8d4', 400: '#f472b6', 500: '#ec4899', 600: '#db2777' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #fdf2f8; color: #4c1d95; }
+        .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 2px solid #fce7f3; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .slider-wrapper { transition: transform 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-20">
+
+    <nav class="sticky top-0 z-50 glass-card px-4 py-3 shadow-sm shadow-pinky-100 flex justify-between items-center">
+        <div class="flex items-center gap-2 text-pinky-500 font-bold text-xl cursor-pointer" onclick="navigate('home')">
+            <i class="fa-solid fa-mobile-screen-button"></i> PinkyPhone
+        </div>
+        <div class="flex gap-4">
+            <button onclick="navigate('payment-view')" class="text-pinky-600 hover:text-pinky-400 text-sm"><i class="fa-solid fa-file-invoice-dollar"></i> ส่งยอด</button>
+            <button onclick="navigate('admin-view')" class="text-pinky-600 hover:text-pinky-400 text-sm"><i class="fa-solid fa-gear"></i> แอดมิน</button>
+        </div>
+    </nav>
+
+    <main id="home-view" class="fade-in max-w-4xl mx-auto p-4">
+        
+        <div class="rounded-2xl overflow-hidden relative w-full aspect-[3/1] shadow-md shadow-pinky-200 mb-6 bg-white">
+            <div id="main-slider" class="flex w-full h-full slider-wrapper">
+                <img src="https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&w=1200&q=80" class="w-full object-cover flex-shrink-0" alt="Banner 1">
+                <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cd56e?auto=format&fit=crop&w=1200&q=80" class="w-full object-cover flex-shrink-0" alt="Banner 2">
+            </div>
+            <div class="absolute bottom-2 left-0 right-0 flex justify-center gap-2" id="slider-dots"></div>
+        </div>
+
+        <div class="text-center mb-6">
+            <span class="bg-pinky-100 text-pinky-600 px-4 py-1 rounded-full text-sm font-medium"><i class="fa-solid fa-star"></i> สินค้าแนะนำ <i class="fa-solid fa-star"></i></span>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            </div>
+    </main>
+
+    <main id="register-view" class="fade-in max-w-2xl mx-auto p-4 hidden">
+        <div class="glass-card p-6 rounded-3xl shadow-lg shadow-pinky-200">
+            <h2 class="text-2xl font-bold text-center text-pinky-500 mb-6"><i class="fa-solid fa-user-pen"></i> ลงทะเบียนผ่อนสินค้า</h2>
+            <form id="register-form" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-pinky-600 mb-1">ชื่อจริง (ภาษาไทย)</label>
+                        <input type="text" id="reg-firstname" required class="w-full p-2.5 rounded-xl border-2 border-pinky-100 focus:border-pinky-300 outline-none bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-pinky-600 mb-1">นามสกุล (ภาษาไทย)</label>
+                        <input type="text" id="reg-lastname" required class="w-full p-2.5 rounded-xl border-2 border-pinky-100 focus:border-pinky-300 outline-none bg-white">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm text-pinky-600 mb-1">เบอร์โทรศัพท์</label>
+                    <input type="tel" id="reg-phone" required class="w-full p-2.5 rounded-xl border-2 border-pinky-100 focus:border-pinky-300 outline-none bg-white">
+                </div>
+                <div>
+                    <label class="block text-sm text-pinky-600 mb-1">เลขบัตรประชาชน (13 หลัก)</label>
+                    <input type="text" id="reg-idcard" required maxlength="13" class="w-full p-2.5 rounded-xl border-2 border-pinky-100 focus:border-pinky-300 outline-none bg-white">
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="col-span-2">
+                        <label class="block text-sm text-pinky-600 mb-1">วัน/เดือน/ปีเกิด</label>
+                        <input type="date" id="reg-dob" required class="w-full p-2.5 rounded-xl border-2 border-pinky-100 focus:border-pinky-300 outline-none bg-white text-gray-600">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-pinky-600 mb-1">อายุ (ปี)</label>
+                        <input type="number" id="reg-age" required class="w-full p-2.5 rounded-xl border-2 border-pinky-100 focus:border-pinky-300 outline-none bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-pinky-600 mb-1">เพศ</label>
+                        <select id="reg-gender" class="w-full p-2.5 rounded-xl border-2 border-pinky-100 focus:border-pinky-300 outline-none bg-white">
+                            <option value="ชาย">ชาย</option>
+                            <option value="หญิง">หญิง</option>
+                            <option value="อื่นๆ">อื่นๆ</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm text-pinky-600 mb-1">จังหวัด</label>
+                    <input type="text" id="reg-province" required class="w-full p-2.5 rounded-xl border-2 border-pinky-100 focus:border-pinky-300 outline-none bg-white">
+                </div>
+                <div>
+                    <label class="block text-sm text-pinky-600 mb-1">รูปบัตรประชาชน</label>
+                    <input type="file" id="reg-file" accept="image/*" required class="w-full p-2.5 rounded-xl border-2 border-pinky-100 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pinky-50 file:text-pinky-600 hover:file:bg-pinky-100 bg-white">
+                </div>
+                
+                <div class="flex gap-4 mt-8">
+                    <button type="button" onclick="navigate('home')" class="flex-1 py-3 rounded-xl border-2 border-pinky-300 text-pinky-500 font-semibold hover:bg-pinky-50"><i class="fa-solid fa-arrow-left"></i> ย้อนกลับ</button>
+                    <button type="submit" class="flex-1 py-3 rounded-xl bg-pinky-400 text-white font-semibold hover:bg-pinky-500 shadow-md shadow-pinky-200" id="btn-submit-reg">ยืนยันการลงทะเบียน <i class="fa-solid fa-check"></i></button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <main id="payment-view" class="fade-in max-w-2xl mx-auto p-4 hidden">
+        <div class="rounded-2xl overflow-hidden mb-6 shadow-md shadow-pinky-200">
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80" alt="Payment Banner" class="w-full h-auto">
+        </div>
+        <div class="glass-card p-6 rounded-3xl text-center">
+            <h2 class="text-2xl font-bold text-pinky-500 mb-2"><i class="fa-solid fa-money-bill-transfer"></i> ส่งยอดชำระเงิน</h2>
+            <p class="text-gray-500 mb-4">กรุณาแนบสลิปเพื่อยืนยันการชำระเงินในรอบของท่าน</p>
+            <button class="bg-pinky-400 text-white px-6 py-3 rounded-xl font-medium w-full shadow-md"><i class="fa-solid fa-upload"></i> แจ้งชำระเงิน</button>
+        </div>
+    </main>
+
+    <main id="admin-view" class="fade-in max-w-4xl mx-auto p-4 hidden">
+        <div class="glass-card p-6 rounded-3xl shadow-lg">
+            <h2 class="text-2xl font-bold text-pinky-500 mb-4"><i class="fa-solid fa-user-shield"></i> ระบบจัดการหลังบ้าน</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-2xl border border-pinky-100">
+                    <h3 class="font-bold text-lg mb-3 border-b pb-2"><i class="fa-solid fa-sliders"></i> ตั้งค่าเว็บไซต์</h3>
+                    <div class="space-y-3 text-sm">
+                        <input type="text" placeholder="ลิงก์แบนเนอร์หลัก" class="w-full p-2 border rounded-lg outline-none focus:border-pinky-300">
+                        <input type="text" placeholder="ลิงก์แบนเนอร์ส่งยอด" class="w-full p-2 border rounded-lg outline-none focus:border-pinky-300">
+                        <input type="text" placeholder="Facebook URL" class="w-full p-2 border rounded-lg outline-none focus:border-pinky-300">
+                        <input type="text" placeholder="Line ID" class="w-full p-2 border rounded-lg outline-none focus:border-pinky-300">
+                        <input type="email" placeholder="อีเมลแจ้งเตือนแอดมิน" class="w-full p-2 border rounded-lg outline-none focus:border-pinky-300">
+                        <button class="w-full bg-gray-800 text-white py-2 rounded-lg">บันทึกการตั้งค่า</button>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-pinky-100">
+                    <h3 class="font-bold text-lg mb-3 border-b pb-2"><i class="fa-solid fa-box-open"></i> จัดการสินค้า</h3>
+                    <div class="space-y-3 text-sm">
+                        <input type="text" placeholder="ชื่อสินค้า (เช่น iPhone 15 Pro)" class="w-full p-2 border rounded-lg outline-none focus:border-pinky-300">
+                        <div class="grid grid-cols-2 gap-2">
+                            <input type="number" placeholder="ราคาเต็ม" class="w-full p-2 border rounded-lg outline-none focus:border-pinky-300">
+                            <input type="number" placeholder="ดาวน์เริ่มต้น" class="w-full p-2 border rounded-lg outline-none focus:border-pinky-300">
+                        </div>
+                        <select class="w-full p-2 border rounded-lg outline-none focus:border-pinky-300">
+                            <option>ผ่อนไปใช้ไป</option>
+                            <option>ผ่อนจบรับของ</option>
+                            <option>เปิดให้เลือกทั้ง 2 แบบ</option>
+                        </select>
+                        <button class="w-full bg-pinky-500 text-white py-2 rounded-lg"><i class="fa-solid fa-plus"></i> เพิ่มสินค้า</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="product-modal" class="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm hidden flex items-end md:items-center justify-center fade-in">
+        <div class="bg-white w-full md:w-auto md:max-w-lg md:rounded-3xl rounded-t-3xl max-h-[90vh] overflow-y-auto hide-scrollbar p-6 relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-100 text-gray-500 w-8 h-8 rounded-full flex items-center justify-center hover:bg-pinky-100 hover:text-pinky-500 transition"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="flex justify-center mb-4">
+                <img id="modal-img" src="" alt="Product" class="h-48 object-contain drop-shadow-lg">
+            </div>
+            <h3 id="modal-title" class="text-xl font-bold text-center mb-1"></h3>
+            <p id="modal-price-badge" class="text-center text-pinky-500 font-semibold mb-4 bg-pinky-50 rounded-full mx-auto w-max px-4 py-1"></p>
+
+            <div class="space-y-4 text-sm">
+                <div>
+                    <label class="font-semibold text-gray-700 block mb-2"><i class="fa-solid fa-box"></i> ประเภทการผ่อน</label>
+                    <div class="grid grid-cols-2 gap-2" id="type-options">
+                        <button onclick="selectType('use')" id="btn-type-use" class="border-2 border-pinky-300 bg-pinky-50 text-pinky-600 py-2 rounded-xl font-medium">ผ่อนไปใช้ไป</button>
+                        <button onclick="selectType('end')" id="btn-type-end" class="border-2 border-gray-200 text-gray-500 py-2 rounded-xl font-medium">ผ่อนจบรับของ</button>
+                    </div>
+                    <p id="type-desc" class="text-xs text-gray-500 mt-2 bg-gray-50 p-2 rounded-lg"><i class="fa-solid fa-circle-info"></i> ได้รับสินค้าไปใช้เมื่อผ่อนถึง 30-55% ของราคาเต็ม</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="font-semibold text-gray-700 block mb-2"><i class="fa-solid fa-memory"></i> ความจุ</label>
+                        <select class="w-full p-2 border-2 border-pinky-100 rounded-xl outline-none bg-white">
+                            <option>128GB</option><option>256GB</option><option>512GB</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="font-semibold text-gray-700 block mb-2"><i class="fa-solid fa-palette"></i> สี</label>
+                        <select class="w-full p-2 border-2 border-pinky-100 rounded-xl outline-none bg-white">
+                            <option>ชมพูพาสเทล</option><option>ฟ้าทะเล</option><option>ขาวมุก</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="bg-pinky-50 p-4 rounded-2xl border border-pinky-100">
+                    <label class="font-semibold text-gray-700 block mb-2"><i class="fa-solid fa-calculator"></i> คำนวณยอดผ่อน</label>
+                    <div class="space-y-3">
+                        <select id="calc-cycle" onchange="calculateInstallment()" class="w-full p-2 border border-white rounded-lg outline-none shadow-sm">
+                            <option value="รายเดือน">รอบ: รายเดือน</option>
+                            <option value="รายสัปดาห์">รอบ: รายสัปดาห์</option>
+                            <option value="รายวัน">รอบ: รายวัน</option>
+                        </select>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">ยอดผ่อนต่อรอบ (ระบุเองได้ ขั้นต่ำ 350 บาท)</p>
+                            <input type="number" id="calc-amount" min="350" value="1000" oninput="calculateInstallment()" class="w-full p-2 border border-white rounded-lg outline-none shadow-sm text-pinky-600 font-bold">
+                        </div>
+                        <div class="pt-2 border-t border-pinky-200 flex justify-between items-center">
+                            <span class="text-gray-600 text-xs">ระยะเวลา (โดยประมาณ):</span>
+                            <span id="calc-duration" class="font-bold text-pinky-600 bg-white px-3 py-1 rounded-lg shadow-sm">14 รอบ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeModal()" class="flex-1 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-semibold">ย้อนกลับ</button>
+                <button onclick="confirmProduct()" class="flex-1 py-3 rounded-xl bg-pinky-400 text-white font-semibold shadow-md hover:bg-pinky-500">ยืนยัน <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="fixed bottom-0 w-full bg-white/50 backdrop-blur-sm text-center py-2 text-xs text-gray-400">
+        &copy; 2026 PinkyPhone Ministore. All rights reserved.
+    </footer>
+
+    <script>
+        const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyT-ZVfmWVto7Ig15J2Sm26JGZjgyJv15i5i_ywp_Wq-p_XwoGQCywnoPgGQ-q_Dgrw/exec";
+        
+        // Mock Products (ระบบจริงแอดมินดึงจากชีตได้)
+        const products = [
+            { id: 1, name: "iPhone 15 Pro", price: 41900, down: 2900, img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-1inch-bluetitanium?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1692846360609" },
+            { id: 2, name: "iPhone 14", price: 29900, down: 1500, img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-14-finish-select-202209-6-1inch-blue?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1661027305984" },
+            { id: 3, name: "iPad Air 5", price: 23900, down: 1200, img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/ipad-air-finish-select-gallery-202211-pink?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1670631627993" },
+            { id: 4, name: "Samsung S24 Ultra", price: 46900, down: 3000, img: "https://images.samsung.com/is/image/samsung/p6pim/th/2401/gallery/th-galaxy-s24-s928-sm-s928bztcthl-thumb-539325492" }
+        ];
+
+        let selectedProduct = null;
+        let selectedDataToRegister = {};
+
+        // โหลดข้อมูลเริ่มต้น
+        window.onload = () => {
+            renderProducts();
+            startBannerSlider();
+            // Pop up ตอนเปิดเว็บ
+            Swal.fire({
+                title: 'ยินดีต้อนรับสู่ PinkyPhone!',
+                text: 'ร้านผ่อนโทรศัพท์มือถือน่ารักๆ อนุมัติไว ของแท้ 100%',
+                iconHtml: '<i class="fa-solid fa-heart text-pinky-400"></i>',
+                customClass: { icon: 'border-none' },
+                confirmButtonText: 'เข้าสู่ร้านค้า',
+                confirmButtonColor: '#f472b6',
+                backdrop: `rgba(255,192,203,0.4)`
+            });
+        };
+
+        // เปลี่ยนหน้า View
+        function navigate(viewId) {
+            ['home-view', 'register-view', 'payment-view', 'admin-view'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(viewId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ระบบ Banner เลื่อนอัตโนมัติทุก 5 วินาที
+        function startBannerSlider() {
+            const slider = document.getElementById('main-slider');
+            const total = slider.children.length;
+            let index = 0;
+            setInterval(() => {
+                index = (index + 1) % total;
+                slider.style.transform = `translateX(-${index * 100}%)`;
+            }, 5000);
+        }
+
+        // แสดงรายการสินค้า
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.map(p => `
+                <div class="glass-card rounded-2xl p-3 shadow-sm hover:shadow-md cursor-pointer transition flex flex-col items-center" onclick="openModal(${p.id})">
+                    <img src="${p.img}" alt="${p.name}" class="w-24 h-24 object-contain mb-3 drop-shadow-sm">
+                    <h3 class="font-semibold text-sm text-center mb-1">${p.name}</h3>
+                    <div class="w-full bg-pinky-50 rounded-lg p-2 text-center mt-auto border border-pinky-100">
+                        <p class="text-[10px] text-gray-500">เริ่มต้นที่</p>
+                        <p class="text-pinky-500 font-bold text-sm">${p.price.toLocaleString()} ฿</p>
+                        <p class="text-[10px] bg-pinky-400 text-white rounded-full mt-1 py-0.5">ดาวน์ ${p.down.toLocaleString()} ฿</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal ควบคุมสินค้า
+        function openModal(id) {
+            selectedProduct = products.find(p => p.id === id);
+            document.getElementById('modal-img').src = selectedProduct.img;
+            document.getElementById('modal-title').innerText = selectedProduct.name;
+            document.getElementById('modal-price-badge').innerHTML = `ราคาเต็ม: ${selectedProduct.price.toLocaleString()} บาท <br> ดาวน์: ${selectedProduct.down.toLocaleString()} บาท`;
+            
+            selectType('use'); // ค่าเริ่มต้น
+            calculateInstallment();
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        // เลือกประเภทการผ่อน
+        function selectType(type) {
+            const btnUse = document.getElementById('btn-type-use');
+            const btnEnd = document.getElementById('btn-type-end');
+            const desc = document.getElementById('type-desc');
+            
+            selectedDataToRegister.installmentType = type === 'use' ? 'ผ่อนไปใช้ไป' : 'ผ่อนจบรับของ';
+
+            if(type === 'use') {
+                btnUse.className = "border-2 border-pinky-300 bg-pinky-50 text-pinky-600 py-2 rounded-xl font-medium";
+                btnEnd.className = "border-2 border-gray-200 text-gray-500 py-2 rounded-xl font-medium";
+                desc.innerHTML = "<i class='fa-solid fa-circle-info'></i> กรณีผ่อนไปใช้ไป ได้รับสินค้าไปใช้เมื่อผ่อนถึง 30-55% ของราคาเต็ม";
+            } else {
+                btnEnd.className = "border-2 border-pinky-300 bg-pinky-50 text-pinky-600 py-2 rounded-xl font-medium";
+                btnUse.className = "border-2 border-gray-200 text-gray-500 py-2 rounded-xl font-medium";
+                desc.innerHTML = "<i class='fa-solid fa-circle-info'></i> กรณีผ่อนจบรับของ ได้รับสินค้าเมื่อชำระยอดผ่อนครบ 100%";
+            }
+        }
+
+        // คำนวณระยะเวลา
+        function calculateInstallment() {
+            if(!selectedProduct) return;
+            const remaining = selectedProduct.price - selectedProduct.down;
+            let amount = parseInt(document.getElementById('calc-amount').value);
+            
+            if(isNaN(amount) || amount < 350) {
+                amount = 350; // บังคับขั้นต่ำ 350
+            }
+            
+            const cycleCount = Math.ceil(remaining / amount);
+            document.getElementById('calc-duration').innerText = `${cycleCount} รอบ`;
+            
+            selectedDataToRegister.installmentAmount = amount;
+            selectedDataToRegister.installmentCycle = document.getElementById('calc-cycle').value;
+            selectedDataToRegister.installmentDuration = cycleCount;
+        }
+
+        // ยืนยันสินค้า ไปหน้าลงทะเบียน
+        function confirmProduct() {
+            closeModal();
+            navigate('register-view');
+        }
+
+        // การส่งฟอร์มลงทะเบียนไปยัง Backend
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-reg');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> กำลังบันทึก...';
+            btn.disabled = true;
+
+            const fileInput = document.getElementById('reg-file');
+            const file = fileInput.files[0];
+
+            // แปลงไฟล์เป็น Base64
+            const reader = new FileReader();
+            reader.onload = async function() {
+                const base64Data = reader.result.split(',')[1];
+                
+                const payload = {
+                    action: "register",
+                    data: {
+                        productName: selectedProduct ? selectedProduct.name : "ไม่ได้เลือก",
+                        price: selectedProduct ? selectedProduct.price : 0,
+                        type: selectedDataToRegister.installmentType || "ผ่อนไปใช้ไป",
+                        cycle: selectedDataToRegister.installmentCycle || "รายเดือน",
+                        amountPerCycle: selectedDataToRegister.installmentAmount || 0,
+                        duration: selectedDataToRegister.installmentDuration || 0,
+                        firstName: document.getElementById('reg-firstname').value,
+                        lastName: document.getElementById('reg-lastname').value,
+                        phone: document.getElementById('reg-phone').value,
+                        idCard: document.getElementById('reg-idcard').value,
+                        dob: document.getElementById('reg-dob').value,
+                        age: document.getElementById('reg-age').value,
+                        gender: document.getElementById('reg-gender').value,
+                        province: document.getElementById('reg-province').value,
+                        fileName: file.name,
+                        mimeType: file.type,
+                        fileData: base64Data
+                    }
+                };
+
+                try {
+                    // ใช้ fetch() ส่งแบบ POST (ไม่ติด CORS หากส่งแบบ text/plain จากฝั่งไคลเอนต์และ GAS ตั้งค่ารองรับ)
+                    const response = await fetch(GAS_WEBAPP_URL, {
+                        method: 'POST',
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+
+                    if(result.status === "success") {
+                        Swal.fire({
+                            title: 'ลงทะเบียนสำเร็จ!',
+                            text: 'ข้อมูลของคุณถูกบันทึกเรียบร้อยแล้ว',
+                            icon: 'success',
+                            confirmButtonColor: '#f472b6'
+                        }).then(() => {
+                            document.getElementById('register-form').reset();
+                            navigate('payment-view'); // ไปหน้าส่งยอด
+                        });
+                    } else {
+                        throw new Error(result.message);
+                    }
+                } catch (error) {
+                    Swal.fire('เกิดข้อผิดพลาด', error.message || 'ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้', 'error');
+                } finally {
+                    btn.innerHTML = 'ยืนยันการลงทะเบียน <i class="fa-solid fa-check"></i>';
+                    btn.disabled = false;
+                }
+            };
+            
+            if(file) reader.readAsDataURL(file);
+        });
+
+    </script>
+</body>
+</html>
