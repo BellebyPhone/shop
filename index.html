@@ -3,35 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BellByPhone - ร้านผ่อนมือถือคุณเบล</title>
+    <title>BellByPhone - Premium Mobile Store</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Kanit', 'sans-serif'],
-                        heading: ['Prompt', 'sans-serif']
-                    },
+                    fontFamily: { sans: ['Kanit', 'sans-serif'], heading: ['Prompt', 'sans-serif'] },
                     colors: {
                         cutie: {
-                            50: '#fff0f5',
-                            100: '#ffe4e8',
-                            200: '#ffcdd2',
-                            300: '#ffb6c1',
-                            400: '#ff85a2',
-                            500: '#f06292',
-                            600: '#e91e63'
+                            50: '#fff0f5', 100: '#ffe4e8', 200: '#ffcdd2', 300: '#ffb6c1',
+                            400: '#ff85a2', 500: '#f06292', 600: '#e91e63'
                         }
                     }
                 }
@@ -42,78 +31,55 @@
     <style>
         body { 
             background: linear-gradient(135deg, #fff0f5 0%, #ffe4e8 100%);
-            color: #4a4a4a;
-            min-height: 100vh;
-            -ms-overflow-style: none;  
-            scrollbar-width: none;  
+            color: #4a4a4a; min-height: 100vh;
+            -ms-overflow-style: none; scrollbar-width: none;  
         }
         body::-webkit-scrollbar { display: none; }
 
         .card-cutie {
-            background: #ffffff;
-            border-radius: 1.8rem;
+            background: #ffffff; border-radius: 1.8rem;
             box-shadow: 0 10px 25px rgba(240, 98, 146, 0.08);
-            border: 2px solid #ffffff;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 2px solid #ffffff; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .card-cutie:hover {
-            box-shadow: 0 15px 35px rgba(240, 98, 146, 0.15);
-            transform: translateY(-5px);
-            border-color: #ffe4e8;
+        .card-cutie:hover { box-shadow: 0 15px 35px rgba(240, 98, 146, 0.15); border-color: #ffe4e8; }
+        
+        .sub-card {
+            background: #fffafa; border-radius: 1.2rem;
+            border: 1px solid #ffe4e8; padding: 1.2rem;
         }
 
         .glass-header {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
         }
 
         .input-cutie {
-            width: 100%;
-            padding: 0.9rem 1.2rem;
-            border-radius: 1.5rem;
-            border: 2px solid #ffe4e8;
-            outline: none;
-            background: #ffffff;
-            text-align: center;
-            transition: all 0.3s;
+            width: 100%; padding: 0.8rem 1.2rem; border-radius: 1rem;
+            border: 1px solid #ffcdd2; outline: none; background: #ffffff;
+            transition: all 0.3s; color: #4a4a4a;
         }
-        .input-cutie:focus {
-            border-color: #ff85a2;
-            box-shadow: 0 0 0 4px rgba(255, 133, 162, 0.15);
-        }
+        .input-cutie:focus { border-color: #ff85a2; box-shadow: 0 0 0 4px rgba(255, 133, 162, 0.15); }
         select.input-cutie { text-align-last: center; }
 
         .btn-cutie {
-            background: linear-gradient(to right, #ff85a2, #f06292);
-            color: white;
-            border-radius: 2rem;
-            padding: 0.9rem 1.5rem;
-            font-family: 'Prompt', sans-serif;
-            font-weight: 500;
-            transition: all 0.3s;
+            background: linear-gradient(to right, #ff85a2, #f06292); color: white;
+            border-radius: 1.5rem; padding: 0.9rem 1.5rem;
+            font-family: 'Prompt', sans-serif; font-weight: 500; transition: all 0.3s;
             box-shadow: 0 4px 15px rgba(240, 98, 146, 0.3);
         }
         .btn-cutie:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(240, 98, 146, 0.4); }
         
         .btn-outline {
-            background-color: white;
-            color: #f06292;
-            border: 2px solid #f06292;
-            border-radius: 2rem;
-            padding: 0.9rem 1.5rem;
-            font-family: 'Prompt', sans-serif;
-            font-weight: 500;
-            transition: all 0.3s;
+            background-color: white; color: #f06292;
+            border: 2px solid #f06292; border-radius: 1.5rem;
+            padding: 0.9rem 1.5rem; font-family: 'Prompt', sans-serif;
+            font-weight: 500; transition: all 0.3s;
         }
         .btn-outline:hover { background-color: #fff0f5; }
 
         .banner-box {
-            aspect-ratio: 3 / 1;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 1.8rem;
-            position: relative;
+            aspect-ratio: 3 / 1; width: 100%; overflow: hidden;
+            border-radius: 1.8rem; position: relative;
             box-shadow: 0 10px 20px rgba(240, 98, 146, 0.1);
         }
 
@@ -125,9 +91,9 @@
 
     <header class="glass-header sticky top-0 z-40 p-3 w-full shadow-sm">
         <div class="max-w-3xl mx-auto w-full flex justify-center items-center relative h-12">
-            <div class="flex items-center gap-2 cursor-pointer hover:scale-105 transition" onclick="switchPage('home')">
+            <div class="flex items-center gap-3 cursor-pointer hover:scale-105 transition" onclick="switchPage('home')">
                 <div class="w-10 h-10 bg-cutie-100 rounded-full flex items-center justify-center text-cutie-500 text-xl shadow-inner">
-                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-gem"></i>
                 </div>
                 <div class="text-center">
                     <h1 class="font-heading text-xl font-semibold text-cutie-600 leading-tight">BellByPhone</h1>
@@ -137,10 +103,9 @@
         </div>
     </header>
 
-    <main class="max-w-3xl mx-auto w-full px-4 pt-6" id="main-content">
-    </main>
+    <main class="max-w-3xl mx-auto w-full px-4 pt-6" id="main-content"></main>
 
-    <nav class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[85%] max-w-sm bg-white/90 backdrop-blur-md rounded-full shadow-[0_10px_40px_rgba(240,98,146,0.2)] px-8 py-3 flex justify-between items-center z-40 border-2 border-cutie-50">
+    <nav class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[85%] max-w-sm bg-white/95 backdrop-blur-md rounded-full shadow-[0_10px_40px_rgba(240,98,146,0.2)] px-8 py-3 flex justify-between items-center z-40 border border-cutie-100">
         <button onclick="switchPage('home')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-cutie-500 transition w-16">
             <i class="fa-solid fa-store text-xl"></i>
             <span class="text-[10px] font-medium">หน้าร้าน</span>
@@ -165,81 +130,89 @@
             </div>
 
             <div class="banner-box mb-8 bg-cutie-50 cursor-pointer hover:scale-[1.02] transition shadow-cutie-200 shadow-lg border-2 border-white" onclick="openPaymentLink()">
-                <img id="home-payment-banner" src="" alt="แบนเนอร์ส่งยอด" class="w-full h-full object-cover">
-                <div class="absolute top-2 right-2 bg-white text-cutie-500 text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
+                <img id="home-payment-banner" src="" alt="ส่งยอด" class="w-full h-full object-cover">
+                <div class="absolute top-3 right-3 bg-white text-cutie-500 text-[10px] font-bold px-3 py-1.5 rounded-full shadow-md">
                     <i class="fa-solid fa-hand-pointer animate-pulse"></i> กดส่งยอดที่นี่
                 </div>
             </div>
 
-            <div class="text-center mb-6">
-                <h2 class="inline-block px-6 py-2 bg-white rounded-full font-heading font-semibold text-cutie-600 shadow-sm border border-cutie-100">
-                    <i class="fa-solid fa-mobile-screen-button text-cutie-400 mr-2"></i> สินค้าทั้งหมด
-                </h2>
+            <div class="flex items-center justify-between mb-4 px-2">
+                <h2 class="text-lg font-heading font-semibold text-gray-800 border-l-4 border-cutie-400 pl-3">สินค้าพร้อมส่ง</h2>
             </div>
 
-            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 pb-12">
-            </div>
+            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 pb-12"></div>
         </div>
 
         <div id="tpl-register" class="fade-in pb-12">
-            <div class="card-cutie p-8 text-center mb-10">
-                <div class="w-16 h-16 bg-cutie-100 rounded-full flex items-center justify-center text-cutie-500 text-2xl mx-auto mb-4">
-                    <i class="fa-solid fa-clipboard-list"></i>
+            <div class="card-cutie p-6 mb-10">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-heading font-semibold text-cutie-600"><i class="fa-solid fa-clipboard-check mr-2"></i> ลงทะเบียนรับสิทธิ์</h2>
+                    <p class="text-xs text-gray-500 mt-1">กรุณากรอกข้อมูลให้ครบถ้วนเพื่อความรวดเร็วในการพิจารณา</p>
                 </div>
-                <h2 class="text-xl font-heading font-semibold text-cutie-600 mb-6">กรอกข้อมูลลงทะเบียน</h2>
                 
-                <form id="reg-form" onsubmit="submitRegistration(event)" class="space-y-4 text-left">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm text-center text-gray-500 mb-1">ชื่อจริง (ไทย)</label>
-                            <input type="text" id="reg-firstname" required class="input-cutie">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-center text-gray-500 mb-1">นามสกุล (ไทย)</label>
-                            <input type="text" id="reg-lastname" required class="input-cutie">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm text-center text-gray-500 mb-1">เบอร์โทรศัพท์ติดต่อ</label>
-                        <input type="tel" id="reg-phone" required maxlength="10" class="input-cutie">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-center text-gray-500 mb-1">เลขประจำตัวประชาชน (13 หลัก)</label>
-                        <input type="text" id="reg-idcard" required maxlength="13" class="input-cutie">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm text-center text-gray-500 mb-1">วันเกิด</label>
-                            <input type="date" id="reg-dob" required class="input-cutie text-gray-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-center text-gray-500 mb-1">อายุ (ปี)</label>
-                            <input type="number" id="reg-age" required min="15" class="input-cutie">
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm text-center text-gray-500 mb-1">จังหวัด</label>
-                            <input type="text" id="reg-province" required class="input-cutie">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-center text-gray-500 mb-1">เพศ</label>
-                            <select id="reg-gender" class="input-cutie">
-                                <option value="ชาย">ชาย</option>
-                                <option value="หญิง">หญิง</option>
-                                <option value="อื่นๆ">อื่นๆ</option>
-                            </select>
-                        </div>
-                    </div>
+                <form id="reg-form" onsubmit="submitRegistration(event)" class="space-y-6">
                     
-                    <div class="mt-6 p-4 border-2 border-dashed border-cutie-200 rounded-2xl bg-cutie-50 text-center">
-                        <label class="block text-sm text-cutie-600 mb-3"><i class="fa-regular fa-image"></i> แนบรูปบัตรประชาชน</label>
-                        <input type="file" id="reg-file" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-white file:text-cutie-500 file:shadow-sm cursor-pointer mx-auto">
+                    <div class="sub-card">
+                        <h3 class="font-heading text-sm text-cutie-500 font-semibold mb-4 border-b border-cutie-100 pb-2"><i class="fa-solid fa-user mr-2"></i> ข้อมูลส่วนตัว</h3>
+                        <div class="space-y-3">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs text-gray-500 mb-1">ชื่อจริง</label>
+                                    <input type="text" id="reg-firstname" required class="input-cutie text-sm text-center">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-gray-500 mb-1">นามสกุล</label>
+                                    <input type="text" id="reg-lastname" required class="input-cutie text-sm text-center">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1">เลขประจำตัวประชาชน (13 หลัก)</label>
+                                <input type="text" id="reg-idcard" required maxlength="13" class="input-cutie text-sm text-center">
+                            </div>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="col-span-2">
+                                    <label class="block text-xs text-gray-500 mb-1">วัน/เดือน/ปีเกิด</label>
+                                    <input type="date" id="reg-dob" required class="input-cutie text-sm text-center">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-gray-500 mb-1">อายุ</label>
+                                    <input type="number" id="reg-age" required min="15" class="input-cutie text-sm text-center">
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="flex gap-3 pt-6">
-                        <button type="button" onclick="switchPage('home')" class="btn-outline w-1/3">กลับ</button>
-                        <button type="submit" id="reg-submit-btn" class="btn-cutie w-2/3">ยืนยันลงทะเบียน</button>
+                    <div class="sub-card">
+                        <h3 class="font-heading text-sm text-cutie-500 font-semibold mb-4 border-b border-cutie-100 pb-2"><i class="fa-solid fa-address-book mr-2"></i> ข้อมูลการติดต่อ</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1">เบอร์โทรศัพท์ (ติดต่อได้)</label>
+                                <input type="tel" id="reg-phone" required maxlength="10" class="input-cutie text-sm text-center">
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs text-gray-500 mb-1">จังหวัดปัจจุบัน</label>
+                                    <input type="text" id="reg-province" required class="input-cutie text-sm text-center">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-gray-500 mb-1">เพศ</label>
+                                    <select id="reg-gender" class="input-cutie text-sm text-center">
+                                        <option value="ชาย">ชาย</option><option value="หญิง">หญิง</option><option value="อื่นๆ">อื่นๆ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sub-card text-center bg-cutie-50/50">
+                        <h3 class="font-heading text-sm text-cutie-500 font-semibold mb-3"><i class="fa-regular fa-id-card mr-2"></i> เอกสารยืนยัน</h3>
+                        <label class="block text-xs text-gray-500 mb-3">อัปโหลดรูปถ่ายบัตรประชาชนที่ชัดเจน</label>
+                        <input type="file" id="reg-file" accept="image/*" required class="block w-full text-xs text-gray-500 file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-medium file:bg-white file:text-cutie-500 file:shadow-sm cursor-pointer mx-auto">
+                    </div>
+
+                    <div class="flex gap-3 pt-2">
+                        <button type="button" onclick="switchPage('home')" class="btn-outline w-1/3">ย้อนกลับ</button>
+                        <button type="submit" id="reg-submit-btn" class="btn-cutie w-2/3">ส่งข้อมูลลงทะเบียน <i class="fa-solid fa-arrow-right ml-1"></i></button>
                     </div>
                 </form>
             </div>
@@ -252,128 +225,125 @@
                 </h2>
             </div>
             
-            <div class="card-cutie p-6 mb-8 text-center">
-                <h3 class="font-heading text-md font-medium text-gray-800 mb-4 pb-2 border-b border-gray-100">ตั้งค่าเว็บไซต์</h3>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">รูปลิงก์แบนเนอร์หลัก (คั่นด้วย ,)</label>
-                        <textarea id="adm-main-banner" class="input-cutie text-sm" rows="2"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">รูปลิงก์แบนเนอร์หน้าส่งยอด</label>
-                        <input type="text" id="adm-pay-banner" class="input-cutie text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">ลิงก์เมื่อกดแบนเนอร์ส่งยอด</label>
-                        <input type="text" id="adm-pay-link" class="input-cutie text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">ข้อความ Popup ตอนเปิดเว็บ</label>
-                        <input type="text" id="adm-popup" class="input-cutie text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">ลิงก์ LINE Official ร้าน</label>
-                        <input type="text" id="adm-line" class="input-cutie text-sm">
-                    </div>
-                    <button onclick="adminSaveSettings()" class="w-full bg-gray-800 text-white rounded-full py-3 font-heading text-sm hover:bg-black transition">บันทึกการตั้งค่า</button>
+            <div class="card-cutie p-6 mb-6">
+                <h3 class="font-heading text-md font-medium text-gray-800 mb-4 pb-2 border-b border-gray-100"><i class="fa-solid fa-palette text-cutie-400 mr-2"></i> ตั้งค่าเว็บไซต์</h3>
+                <div class="space-y-3">
+                    <input type="text" id="adm-main-banner" placeholder="รูปลิงก์แบนเนอร์หลัก (คั่นด้วย ,)" class="input-cutie text-sm text-left">
+                    <input type="text" id="adm-pay-banner" placeholder="รูปลิงก์แบนเนอร์ส่งยอด" class="input-cutie text-sm text-left">
+                    <input type="text" id="adm-pay-link" placeholder="ลิงก์เมื่อกดแบนเนอร์ส่งยอด" class="input-cutie text-sm text-left">
+                    <input type="text" id="adm-popup" placeholder="ข้อความ Popup ตอนเปิดเว็บ" class="input-cutie text-sm text-left">
+                    <input type="text" id="adm-line" placeholder="ลิงก์ LINE Official ร้าน" class="input-cutie text-sm text-left">
+                    <button onclick="adminSaveSettings()" class="w-full bg-gray-800 text-white rounded-xl py-3 font-heading text-sm hover:bg-black transition mt-2">บันทึกการตั้งค่าเว็บ</button>
                 </div>
             </div>
 
-            <div class="card-cutie p-6 mb-8 text-center">
-                <h3 class="font-heading text-md font-medium text-gray-800 mb-4 pb-2 border-b border-gray-100">เพิ่มสินค้าใหม่</h3>
-                <div class="space-y-4">
-                    <input type="text" id="adm-prod-name" placeholder="ชื่อสินค้า (เช่น iPhone 15)" class="input-cutie text-sm">
-                    <input type="text" id="adm-prod-img" placeholder="ลิงก์รูปภาพสินค้า" class="input-cutie text-sm">
+            <div class="card-cutie p-6 mb-6" id="admin-product-form-box">
+                <h3 id="admin-form-title" class="font-heading text-md font-medium text-gray-800 mb-4 pb-2 border-b border-gray-100"><i class="fa-solid fa-box-open text-cutie-400 mr-2"></i> เพิ่มสินค้าใหม่</h3>
+                <div class="space-y-3">
+                    <input type="hidden" id="adm-prod-id">
+                    <input type="text" id="adm-prod-name" placeholder="ชื่อสินค้า (เช่น iPhone 15)" class="input-cutie text-sm text-left">
+                    <input type="text" id="adm-prod-img" placeholder="ลิงก์รูปภาพสินค้า" class="input-cutie text-sm text-left">
                     <div class="grid grid-cols-2 gap-3">
-                        <input type="text" id="adm-prod-cat" placeholder="หมวดหมู่" class="input-cutie text-sm">
-                        <input type="text" id="adm-prod-storage" placeholder="ความจุ (เช่น 128GB, 256GB)" class="input-cutie text-sm">
+                        <input type="text" id="adm-prod-cat" placeholder="หมวดหมู่" class="input-cutie text-sm text-center">
+                        <input type="text" id="adm-prod-storage" placeholder="ความจุ" class="input-cutie text-sm text-center">
                     </div>
                     <div class="grid grid-cols-2 gap-3">
-                        <input type="text" id="adm-prod-color" placeholder="สี (เช่น ชมพู, ฟ้า)" class="input-cutie text-sm">
-                        <select id="adm-prod-type" class="input-cutie text-sm">
+                        <input type="text" id="adm-prod-color" placeholder="สี (คั่นด้วย ,)" class="input-cutie text-sm text-center">
+                        <select id="adm-prod-type" class="input-cutie text-sm text-center">
                             <option value="เปิดให้เลือกทั้ง 2 แบบ">เลือกได้ทั้ง 2 แบบ</option>
-                            <option value="ผ่อนไปใช้ไป">บังคับผ่อนไปใช้ไป</option>
-                            <option value="ผ่อนจบรับของ">บังคับผ่อนจบรับของ</option>
+                            <option value="ผ่อนไปใช้ไป">ผ่อนไปใช้ไป</option>
+                            <option value="ผ่อนจบรับของ">ผ่อนจบรับของ</option>
                         </select>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
-                        <input type="number" id="adm-prod-price" placeholder="ราคาเต็ม (บาท)" class="input-cutie text-sm">
-                        <input type="number" id="adm-prod-down" placeholder="ดาวน์เริ่มต้น (บาท)" class="input-cutie text-sm">
+                        <input type="number" id="adm-prod-price" placeholder="ราคาเต็ม" class="input-cutie text-sm text-center">
+                        <input type="number" id="adm-prod-down" placeholder="ดาวน์เริ่มต้น" class="input-cutie text-sm text-center">
                     </div>
-                    <button onclick="adminAddProduct()" class="w-full bg-cutie-500 text-white rounded-full py-3 font-heading text-sm hover:bg-cutie-600 transition shadow-md">เพิ่มลงสต็อก</button>
+                    <div class="flex gap-2 mt-2">
+                        <button type="button" id="btn-cancel-edit" onclick="resetAdminProductForm()" class="btn-outline w-1/3 hidden">ยกเลิก</button>
+                        <button type="button" id="btn-save-product" onclick="adminSaveProduct()" class="btn-cutie w-full text-sm">บันทึกสินค้าลงสต็อก</button>
+                    </div>
                 </div>
+            </div>
+
+            <div class="card-cutie p-6">
+                <h3 class="font-heading text-md font-medium text-gray-800 mb-4 pb-2 border-b border-gray-100"><i class="fa-solid fa-list text-cutie-400 mr-2"></i> รายการสินค้าในสต็อก</h3>
+                <div id="admin-product-list" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+                    </div>
             </div>
         </div>
 
     </div>
 
-    <div id="product-modal" class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center fade-in">
-        <div class="bg-white w-full sm:w-auto sm:max-w-md rounded-t-[2.5rem] sm:rounded-3xl max-h-[90vh] overflow-y-auto pb-6 relative shadow-2xl border-4 border-white">
+    <div id="product-modal" class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center fade-in">
+        <div class="bg-white w-full sm:w-auto sm:max-w-md rounded-t-[2rem] sm:rounded-3xl max-h-[92vh] overflow-y-auto pb-6 relative shadow-2xl border-t-4 border-cutie-200 sm:border-4">
             
-            <button onclick="closeModal()" class="absolute top-4 right-4 bg-cutie-50 text-cutie-400 w-10 h-10 rounded-full flex items-center justify-center hover:bg-cutie-100 transition z-10 shadow-sm">
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-100 text-gray-400 w-8 h-8 rounded-full flex items-center justify-center hover:bg-cutie-100 hover:text-cutie-500 transition z-10 shadow-sm">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             
-            <div class="p-6 pb-2 flex justify-center mt-4">
-                <img id="modal-img" src="" class="h-48 object-contain drop-shadow-md transition transform hover:scale-105">
+            <div class="p-5 pb-0 flex justify-center mt-2">
+                <img id="modal-img" src="" class="h-40 object-contain drop-shadow-md">
             </div>
             
-            <div class="px-6 space-y-5">
-                <div class="text-center border-b border-gray-100 pb-5">
-                    <h3 id="modal-title" class="text-2xl font-heading font-semibold text-gray-800 mb-2"></h3>
-                    <div class="flex justify-center gap-3 text-sm">
-                        <span class="text-gray-500">ราคาเต็ม <span id="modal-price" class="font-medium text-gray-800"></span> ฿</span>
-                        <span class="text-cutie-600 font-bold bg-cutie-100 px-3 py-1 rounded-full shadow-sm">ดาวน์ <span id="modal-down"></span> ฿</span>
+            <div class="px-6 space-y-5 mt-4">
+                <div class="text-center border-b border-gray-100 pb-4">
+                    <h3 id="modal-title" class="text-xl font-heading font-semibold text-gray-800 mb-2"></h3>
+                    <div class="flex justify-center gap-2 text-sm">
+                        <span class="text-gray-500 bg-gray-50 px-3 py-1 rounded-full">ราคา <span id="modal-price" class="font-medium text-gray-800"></span> ฿</span>
+                        <span class="text-cutie-600 font-bold bg-cutie-50 px-3 py-1 rounded-full border border-cutie-100">ดาวน์ <span id="modal-down"></span> ฿</span>
                     </div>
                 </div>
 
-                <div class="text-center">
-                    <label class="block text-sm text-gray-500 mb-2">เลือกรูปแบบการผ่อน</label>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">รูปแบบการผ่อน</label>
                     <div class="grid grid-cols-2 gap-2">
-                        <button onclick="selectInstallmentType('ผ่อนไปใช้ไป')" id="btn-type-use" class="border-2 border-cutie-400 bg-cutie-50 text-cutie-600 py-3 rounded-2xl text-sm font-medium transition">ผ่อนไปใช้ไป</button>
-                        <button onclick="selectInstallmentType('ผ่อนจบรับของ')" id="btn-type-end" class="border-2 border-gray-100 text-gray-400 bg-white py-3 rounded-2xl text-sm font-medium transition">ผ่อนจบรับของ</button>
+                        <button onclick="selectInstallmentType('ผ่อนไปใช้ไป')" id="btn-type-use" class="border border-cutie-400 bg-cutie-50 text-cutie-600 py-2.5 rounded-xl text-sm font-medium transition">ผ่อนไปใช้ไป</button>
+                        <button onclick="selectInstallmentType('ผ่อนจบรับของ')" id="btn-type-end" class="border border-gray-200 text-gray-400 bg-white py-2.5 rounded-xl text-sm font-medium transition">ผ่อนจบรับของ</button>
                     </div>
-                    <p id="type-desc" class="text-xs text-gray-500 mt-2 bg-gray-50 p-2 rounded-xl border border-gray-100"></p>
+                    <p id="type-desc" class="text-xs text-center text-gray-500 mt-2 bg-gray-50 py-1.5 rounded-lg border border-gray-100"></p>
                 </div>
 
-                <div class="grid grid-cols-2 gap-3 text-center">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-sm text-gray-500 mb-1">ความจุ</label>
+                        <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wide text-center">ความจุ</label>
                         <select id="sel-storage" class="input-cutie !p-2 text-sm"></select>
                     </div>
                     <div>
-                        <label class="block text-sm text-gray-500 mb-1">สีเครื่อง</label>
+                        <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wide text-center">สี</label>
                         <select id="sel-color" class="input-cutie !p-2 text-sm"></select>
                     </div>
                 </div>
 
-                <div class="bg-cutie-50 border-2 border-cutie-100 p-5 rounded-3xl text-center">
-                    <label class="block text-sm font-bold text-cutie-600 mb-3"><i class="fa-solid fa-calculator"></i> คำนวณยอดส่ง</label>
-                    <div class="space-y-4">
-                        <select id="calc-cycle" onchange="calculateInstallment()" class="input-cutie !p-2 text-sm bg-white border-white">
-                            <option value="รายเดือน">ส่งรายเดือน</option>
-                            <option value="รายสัปดาห์">ส่งรายสัปดาห์</option>
-                            <option value="รายวัน">ส่งรายวัน</option>
-                        </select>
-                        <div>
-                            <div class="flex justify-between text-xs text-gray-500 mb-1 px-2">
-                                <span>ยอดส่งต่อรอบ (บาท)</span>
-                                <span class="text-cutie-400">ขั้นต่ำ 350.-</span>
+                <div class="sub-card bg-cutie-50/30">
+                    <label class="block text-sm font-heading font-semibold text-cutie-600 mb-3 text-center"><i class="fa-solid fa-calculator mr-1"></i> คำนวณแผนการผ่อน</label>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-1/2">
+                                <label class="block text-[10px] text-gray-500 mb-1 text-center">รอบส่งยอด</label>
+                                <select id="calc-cycle" onchange="calculateInstallment()" class="input-cutie !p-2 text-sm bg-white border-white shadow-sm">
+                                    <option value="รายเดือน">รายเดือน</option><option value="รายสัปดาห์">รายสัปดาห์</option><option value="รายวัน">รายวัน</option>
+                                </select>
                             </div>
-                            <input type="number" id="calc-amount" min="350" value="1000" oninput="calculateInstallment()" class="input-cutie !p-3 text-xl text-cutie-600 font-bold bg-white border-white shadow-sm">
+                            <div class="w-1/2">
+                                <label class="block text-[10px] text-gray-500 mb-1 text-center">จำนวนงวดที่ต้องการ</label>
+                                <input type="number" id="calc-duration" min="1" value="10" oninput="calculateInstallment()" class="input-cutie !p-2 text-sm font-bold text-gray-700 bg-white border-white shadow-sm text-center">
+                            </div>
                         </div>
-                        <div class="flex justify-between items-center bg-white p-3 rounded-2xl border border-cutie-100">
-                            <span class="text-xs text-gray-500 font-medium">ระยะเวลาผ่อนประมาณ</span>
-                            <span id="calc-duration" class="text-sm font-bold text-cutie-600 bg-cutie-50 px-3 py-1 rounded-full"></span>
+
+                        <div class="bg-white p-3 rounded-xl border border-cutie-100 text-center relative overflow-hidden mt-2">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-cutie-400"></div>
+                            <p class="text-xs text-gray-500 font-medium mb-1">ยอดส่งต่อรอบโดยประมาณ</p>
+                            <p class="text-2xl font-bold text-cutie-600" id="calc-amount-display">0</p>
+                            <p class="text-[9px] text-red-400 mt-1" id="calc-warning"></p>
                         </div>
                     </div>
                 </div>
 
-                <button onclick="confirmProductToRegister()" class="btn-cutie w-full text-lg py-3 shadow-lg">ยืนยันทำรายการต่อ <i class="fa-solid fa-arrow-right text-sm ml-1"></i></button>
+                <button onclick="confirmProductToRegister()" class="btn-cutie w-full text-base py-3 shadow-md mt-2">ยืนยันรับสิทธิ์ผ่อนเครื่องนี้</button>
             </div>
         </div>
     </div>
-
 
     <script>
         const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyT-ZVfmWVto7Ig15J2Sm26JGZjgyJv15i5i_ywp_Wq-p_XwoGQCywnoPgGQ-q_Dgrw/exec";
@@ -409,6 +379,7 @@
             } else if (pageId === 'admin') {
                 mainContent.innerHTML = document.getElementById('tpl-admin').innerHTML;
                 fillAdminSettings();
+                renderAdminProductList();
             }
         }
 
@@ -442,8 +413,7 @@
                     const imgs = document.querySelectorAll('.banner-img');
                     imgs[0].classList.replace('opacity-0', 'opacity-100');
                     if(banners.length > 1) {
-                        let curIdx = 0;
-                        clearInterval(bannerInterval);
+                        let curIdx = 0; clearInterval(bannerInterval);
                         bannerInterval = setInterval(() => {
                             imgs[curIdx].classList.replace('opacity-100', 'opacity-0');
                             curIdx = (curIdx + 1) % banners.length;
@@ -454,42 +424,33 @@
             }
 
             const payBannerImg = document.getElementById('home-payment-banner');
-            if(payBannerImg) {
-                payBannerImg.src = storeSettings.paymentBannerUrl;
-            }
+            if(payBannerImg) payBannerImg.src = storeSettings.paymentBannerUrl;
 
             const grid = document.getElementById('product-grid');
             if (storeProducts.length === 0) {
-                grid.innerHTML = `<div class="col-span-2 text-center text-gray-400 py-10 text-sm">ยังไม่มีสินค้าในสต็อกน้า</div>`;
-                return;
+                grid.innerHTML = `<div class="col-span-2 text-center text-gray-400 py-10 text-sm">ยังไม่มีสินค้าในสต็อก</div>`; return;
             }
 
             grid.innerHTML = storeProducts.map(p => {
                 if(!p['ชื่อสินค้า']) return ''; 
                 return `
-                <div class="card-cutie p-4 cursor-pointer text-center" onclick="openProductDetail(${p['ID']})">
-                    <div class="bg-cutie-50 rounded-2xl p-3 mb-3 aspect-square flex items-center justify-center border border-cutie-100">
+                <div class="card-cutie p-3 cursor-pointer text-center flex flex-col h-full" onclick="openProductDetail(${p['ID']})">
+                    <div class="bg-gray-50 rounded-xl p-2 mb-2 aspect-square flex items-center justify-center">
                         <img src="${p['รูปภาพ']}" alt="${p['ชื่อสินค้า']}" class="max-h-full object-contain">
                     </div>
-                    <h3 class="font-medium text-sm text-gray-800 line-clamp-1 mb-1">${p['ชื่อสินค้า']}</h3>
-                    <p class="text-[10px] text-gray-400 mb-1">ดาวน์เริ่มต้น</p>
-                    <p class="text-cutie-500 font-bold text-sm bg-cutie-50 rounded-full py-1">${Number(p['ดาวน์เริ่มต้น']).toLocaleString()} ฿</p>
+                    <h3 class="font-medium text-[13px] text-gray-800 line-clamp-2 mb-auto leading-tight">${p['ชื่อสินค้า']}</h3>
+                    <div class="mt-2 pt-2 border-t border-gray-50">
+                        <p class="text-[9px] text-gray-400">ดาวน์เริ่มต้น</p>
+                        <p class="text-cutie-500 font-bold text-sm">${Number(p['ดาวน์เริ่มต้น']).toLocaleString()} ฿</p>
+                    </div>
                 </div>`;
             }).join('');
         }
 
-        function openPaymentLink() {
-            if(storeSettings.paymentBannerLink) {
-                window.open(storeSettings.paymentBannerLink, '_blank');
-            }
-        }
+        function openPaymentLink() { if(storeSettings.paymentBannerLink) window.open(storeSettings.paymentBannerLink, '_blank'); }
+        function openLine() { if(storeSettings.lineUrl) window.open(storeSettings.lineUrl, '_blank'); }
 
-        function openLine() {
-            if(storeSettings.lineUrl) {
-                window.open(storeSettings.lineUrl, '_blank');
-            }
-        }
-
+        // --- ระบบคำนวณและป๊อปอัป ---
         function openProductDetail(productId) {
             const product = storeProducts.find(p => p['ID'] == productId);
             if(!product) return;
@@ -517,6 +478,7 @@
                 btnUse.style.display = 'none'; selectInstallmentType('ผ่อนจบรับของ');
             } else { selectInstallmentType('ผ่อนไปใช้ไป'); }
 
+            document.getElementById('calc-duration').value = 10; // ค่าเริ่มต้นงวด
             calculateInstallment();
             document.getElementById('product-modal').classList.remove('hidden');
         }
@@ -535,35 +497,47 @@
             const btnEnd = document.getElementById('btn-type-end');
             const desc = document.getElementById('type-desc');
 
-            const activeClass = "border-2 border-cutie-400 bg-cutie-50 text-cutie-600".split(' ');
-            const inactiveClass = "border-2 border-gray-100 text-gray-400 bg-white".split(' ');
+            const activeClass = "border-cutie-400 bg-cutie-50 text-cutie-600".split(' ');
+            const inactiveClass = "border-gray-200 text-gray-400 bg-white".split(' ');
 
             if(type === 'ผ่อนไปใช้ไป') {
                 btnUse.classList.remove(...inactiveClass); btnUse.classList.add(...activeClass);
                 btnEnd.classList.remove(...activeClass); btnEnd.classList.add(...inactiveClass);
-                desc.innerText = 'ได้รับสินค้าไปใช้เมื่อผ่อนถึง 30-55% ของราคาเครื่องค่ะ';
+                desc.innerText = 'ได้รับเครื่องไปใช้เมื่อยอดถึง 30-55%';
             } else {
                 btnEnd.classList.remove(...inactiveClass); btnEnd.classList.add(...activeClass);
                 btnUse.classList.remove(...activeClass); btnUse.classList.add(...inactiveClass);
-                desc.innerText = 'ได้รับสินค้าเมื่อชำระยอดผ่อนครบ 100% ค่ะ';
+                desc.innerText = 'ได้รับเครื่องเมื่อส่งยอดครบ 100%';
             }
         }
 
         function calculateInstallment() {
-            let amount = parseInt(document.getElementById('calc-amount').value);
-            if (isNaN(amount) || amount < 350) {
-                document.getElementById('calc-duration').innerText = `ขั้นต่ำ 350 ฿`; return;
-            }
-            const cycleCount = Math.ceil((selectedProductInfo.price - selectedProductInfo.down) / amount);
-            selectedProductInfo.amountPerCycle = amount;
+            let duration = parseInt(document.getElementById('calc-duration').value);
+            const warningEl = document.getElementById('calc-warning');
+            const displayEl = document.getElementById('calc-amount-display');
+
+            if (isNaN(duration) || duration < 1) { duration = 1; document.getElementById('calc-duration').value = 1; }
+            
+            const remaining = selectedProductInfo.price - selectedProductInfo.down;
+            const amountPerCycle = Math.ceil(remaining / duration);
+
+            displayEl.innerText = amountPerCycle.toLocaleString() + ' ฿';
+            selectedProductInfo.amountPerCycle = amountPerCycle;
+            selectedProductInfo.duration = duration;
             selectedProductInfo.cycle = document.getElementById('calc-cycle').value;
-            selectedProductInfo.duration = cycleCount;
-            document.getElementById('calc-duration').innerText = `${cycleCount} งวด`;
+
+            if (amountPerCycle < 350) {
+                warningEl.innerText = "* ยอดต่อรอบน้อยกว่า 350 บาท กรุณาลดจำนวนงวดลงค่ะ";
+                displayEl.classList.replace('text-cutie-600', 'text-red-500');
+            } else {
+                warningEl.innerText = "";
+                displayEl.classList.replace('text-red-500', 'text-cutie-600');
+            }
         }
 
         function confirmProductToRegister() {
-            if (parseInt(document.getElementById('calc-amount').value) < 350) {
-                Swal.fire('แจ้งเตือน', 'ยอดส่งต้องขั้นต่ำ 350 บาทขึ้นไปนะคะ', 'warning'); return;
+            if (selectedProductInfo.amountPerCycle < 350) {
+                Swal.fire('แจ้งเตือน', 'ยอดส่งขั้นต่ำต้อง 350 บาทขึ้นไปต่อรอบ กรุณาปรับจำนวนงวดลงนะคะ', 'warning'); return;
             }
             selectedProductInfo.storage = document.getElementById('sel-storage').value;
             selectedProductInfo.color = document.getElementById('sel-color').value;
@@ -574,23 +548,18 @@
         async function submitRegistration(e) {
             e.preventDefault();
             const btn = document.getElementById('reg-submit-btn');
-            btn.innerHTML = 'กำลังบันทึกข้อมูล...'; btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> กำลังส่งข้อมูล...'; btn.disabled = true;
 
             const file = document.getElementById('reg-file').files[0];
-            if(!file) { Swal.fire('แจ้งเตือน', 'อย่าลืมแนบรูปบัตรประชาชนนะคะ', 'warning'); btn.innerHTML = 'ยืนยันลงทะเบียน'; btn.disabled = false; return; }
+            if(!file) { Swal.fire('แจ้งเตือน', 'อย่าลืมแนบรูปบัตรประชาชนนะคะ', 'warning'); btn.innerHTML = 'ส่งข้อมูลลงทะเบียน'; btn.disabled = false; return; }
 
             const reader = new FileReader();
             reader.onload = async function() {
                 const payloadData = {
-                    firstName: document.getElementById('reg-firstname').value,
-                    lastName: document.getElementById('reg-lastname').value,
-                    phone: document.getElementById('reg-phone').value,
-                    idCard: document.getElementById('reg-idcard').value,
-                    dob: document.getElementById('reg-dob').value,
-                    age: document.getElementById('reg-age').value,
-                    province: document.getElementById('reg-province').value,
-                    gender: document.getElementById('reg-gender').value,
-                    
+                    firstName: document.getElementById('reg-firstname').value, lastName: document.getElementById('reg-lastname').value,
+                    phone: document.getElementById('reg-phone').value, idCard: document.getElementById('reg-idcard').value,
+                    dob: document.getElementById('reg-dob').value, age: document.getElementById('reg-age').value,
+                    province: document.getElementById('reg-province').value, gender: document.getElementById('reg-gender').value,
                     productName: selectedProductInfo.name || "-", storage: selectedProductInfo.storage || "-",
                     color: selectedProductInfo.color || "-", price: selectedProductInfo.price || 0,
                     downPayment: selectedProductInfo.down || 0, installmentType: selectedProductInfo.type || "-",
@@ -602,29 +571,22 @@
                     const res = await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: "register", data: payloadData }) });
                     const result = await res.json();
                     if(result.status === "success") {
-                        Swal.fire({ 
-                            title: 'ลงทะเบียนสำเร็จ!', 
-                            html: '<i class="fa-solid fa-circle-check text-green-500 text-3xl mb-3"></i><br>แอดมินได้รับข้อมูลแล้วค่ะ กดตกลงเพื่อไปหน้าส่งยอด', 
-                            showConfirmButton: true,
-                            confirmButtonColor: '#f06292' 
-                        }).then(() => openPaymentLink());
+                        Swal.fire({ title: 'สำเร็จ!', text: 'ส่งข้อมูลเรียบร้อย กดเพื่อไปยังหน้าแจ้งส่งยอด', icon: 'success', confirmButtonColor: '#f06292' })
+                        .then(() => openPaymentLink());
                     } else { throw new Error(result.message); }
-                } catch (err) { Swal.fire('ผิดพลาด', 'ส่งข้อมูลไม่สำเร็จ ลองใหม่อีกครั้งนะคะ', 'error'); } 
-                finally { btn.innerHTML = 'ยืนยันลงทะเบียน'; btn.disabled = false; }
+                } catch (err) { Swal.fire('ผิดพลาด', 'ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่ค่ะ', 'error'); } 
+                finally { btn.innerHTML = 'ส่งข้อมูลลงทะเบียน <i class="fa-solid fa-arrow-right ml-1"></i>'; btn.disabled = false; }
             };
             reader.readAsDataURL(file);
         }
 
+        // --- ระบบแอดมินและการจัดการสต็อก ---
         async function promptAdminLogin() {
             const { value: pass } = await Swal.fire({
-                title: 'เข้าสู่โหมดแอดมิน', 
-                html: '<i class="fa-solid fa-user-shield text-cutie-500 text-3xl mb-2"></i>',
-                input: 'password', 
-                confirmButtonColor: '#f06292', 
-                showCancelButton: true
+                title: 'เข้าสู่ระบบแอดมิน', input: 'password', confirmButtonColor: '#f06292', showCancelButton: true, cancelButtonText: 'ยกเลิก'
             });
             if (pass === ADMIN_PASSWORD) { switchPage('admin'); } 
-            else if (pass) { Swal.fire({ icon: 'error', title: 'รหัสผ่านไม่ถูกต้องค่ะ' }); }
+            else if (pass) { Swal.fire({ icon: 'error', title: 'รหัสผ่านไม่ถูกต้อง' }); }
         }
 
         function fillAdminSettings() {
@@ -637,47 +599,110 @@
 
         async function adminSaveSettings() {
             const payload = {
-                bannerUrls: document.getElementById('adm-main-banner').value,
-                paymentBannerUrl: document.getElementById('adm-pay-banner').value,
-                paymentBannerLink: document.getElementById('adm-pay-link').value,
-                welcomePopup: document.getElementById('adm-popup').value,
+                bannerUrls: document.getElementById('adm-main-banner').value, paymentBannerUrl: document.getElementById('adm-pay-banner').value,
+                paymentBannerLink: document.getElementById('adm-pay-link').value, welcomePopup: document.getElementById('adm-popup').value,
                 lineUrl: document.getElementById('adm-line').value
             };
             Swal.fire({ title: 'กำลังบันทึก...', didOpen: () => Swal.showLoading() });
             try {
                 await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: "saveSettings", data: payload }) });
-                Swal.fire('สำเร็จ', 'บันทึกการตั้งค่าเรียบร้อย', 'success');
-                storeSettings = { ...storeSettings, ...payload };
+                Swal.fire('สำเร็จ', 'บันทึกตั้งค่าเรียบร้อย', 'success'); storeSettings = { ...storeSettings, ...payload };
             } catch (e) { Swal.fire('ผิดพลาด', 'บันทึกไม่สำเร็จ', 'error'); }
         }
 
-        async function adminAddProduct() {
+        // --- เพิ่ม/แก้ไข/ลบ สินค้า ---
+        function renderAdminProductList() {
+            const listContainer = document.getElementById('admin-product-list');
+            if (storeProducts.length === 0) { listContainer.innerHTML = '<p class="text-xs text-gray-400 text-center">ยังไม่มีสินค้า</p>'; return; }
+            
+            listContainer.innerHTML = storeProducts.map(p => {
+                if(!p['ชื่อสินค้า']) return '';
+                return `
+                <div class="flex items-center justify-between p-3 border border-gray-100 rounded-xl bg-gray-50">
+                    <div class="flex items-center gap-3">
+                        <img src="${p['รูปภาพ']}" class="w-10 h-10 object-contain bg-white rounded-lg p-1">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-700 line-clamp-1">${p['ชื่อสินค้า']}</p>
+                            <p class="text-[10px] text-gray-500">ราคา: ${p['ราคาเต็ม']} | ดาวน์: ${p['ดาวน์เริ่มต้น']}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick='editAdminProduct(${JSON.stringify(p).replace(/'/g, "&#39;")})' class="w-8 h-8 rounded-full bg-blue-100 text-blue-500 hover:bg-blue-200 transition flex justify-center items-center"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteAdminProduct('${p['ID']}')" class="w-8 h-8 rounded-full bg-red-100 text-red-500 hover:bg-red-200 transition flex justify-center items-center"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function editAdminProduct(product) {
+            document.getElementById('adm-prod-id').value = product['ID'];
+            document.getElementById('adm-prod-name').value = product['ชื่อสินค้า'];
+            document.getElementById('adm-prod-img').value = product['รูปภาพ'];
+            document.getElementById('adm-prod-cat').value = product['หมวดหมู่'];
+            document.getElementById('adm-prod-storage').value = product['ความจุ'];
+            document.getElementById('adm-prod-color').value = product['สี'];
+            document.getElementById('adm-prod-type').value = product['ประเภทการผ่อน'];
+            document.getElementById('adm-prod-price').value = product['ราคาเต็ม'];
+            document.getElementById('adm-prod-down').value = product['ดาวน์เริ่มต้น'];
+            
+            document.getElementById('admin-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square text-blue-400 mr-2"></i> แก้ไขสินค้า';
+            document.getElementById('btn-save-product').innerText = 'บันทึกการแก้ไข';
+            document.getElementById('btn-cancel-edit').classList.remove('hidden');
+            document.getElementById('admin-product-form-box').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetAdminProductForm() {
+            document.getElementById('adm-prod-id').value = '';
+            document.querySelectorAll('#admin-product-form-box input:not([type="hidden"]), #admin-product-form-box select').forEach(el => el.value = '');
+            document.getElementById('admin-form-title').innerHTML = '<i class="fa-solid fa-box-open text-cutie-400 mr-2"></i> เพิ่มสินค้าใหม่';
+            document.getElementById('btn-save-product').innerText = 'บันทึกสินค้าลงสต็อก';
+            document.getElementById('btn-cancel-edit').classList.add('hidden');
+        }
+
+        async function adminSaveProduct() {
+            const id = document.getElementById('adm-prod-id').value;
             const name = document.getElementById('adm-prod-name').value;
             const price = document.getElementById('adm-prod-price').value;
-            if(!name || !price) { Swal.fire('แจ้งเตือน', 'กรุณาใส่ชื่อและราคาด้วยนะคะ', 'warning'); return; }
+            if(!name || !price) { Swal.fire('แจ้งเตือน', 'กรุณาใส่ชื่อและราคา', 'warning'); return; }
 
             const payload = {
-                name: name, imageUrl: document.getElementById('adm-prod-img').value,
+                id: id, name: name, imageUrl: document.getElementById('adm-prod-img').value,
                 category: document.getElementById('adm-prod-cat').value, storage: document.getElementById('adm-prod-storage').value || "-",
                 color: document.getElementById('adm-prod-color').value || "-", type: document.getElementById('adm-prod-type').value,
                 price: price, downPayment: document.getElementById('adm-prod-down').value || 0
             };
 
-            Swal.fire({ title: 'กำลังเพิ่มสต็อก...', didOpen: () => Swal.showLoading() });
+            const action = id ? "updateProduct" : "addProduct";
+            Swal.fire({ title: 'กำลังบันทึก...', didOpen: () => Swal.showLoading() });
+            
             try {
-                await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: "addProduct", data: payload }) });
-                Swal.fire('สำเร็จ', 'เพิ่มสินค้าเข้าสต็อกแล้ว รีเฟรชหน้าร้านเพื่อดูผล', 'success');
-                document.querySelectorAll('#tpl-admin input').forEach(el => el.value = ''); fillAdminSettings();
-            } catch (e) { Swal.fire('ผิดพลาด', 'เพิ่มไม่สำเร็จ', 'error'); }
+                await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: action, data: payload }) });
+                Swal.fire('สำเร็จ', 'อัปเดตสต็อกเรียบร้อย', 'success').then(() => {
+                    resetAdminProductForm(); loadInitialData(); // โหลดใหม่เพื่ออัปเดต list
+                });
+            } catch (e) { Swal.fire('ผิดพลาด', 'บันทึกไม่สำเร็จ', 'error'); }
+        }
+
+        async function deleteAdminProduct(id) {
+            Swal.fire({
+                title: 'ยืนยันการลบ?', text: "สินค้านี้จะหายไปจากหน้าร้านทันที", icon: 'warning',
+                showCancelButton: true, confirmButtonColor: '#e91e63', cancelButtonColor: '#9ca3af', confirmButtonText: 'ลบเลย', cancelButtonText: 'ยกเลิก'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({ title: 'กำลังลบ...', didOpen: () => Swal.showLoading() });
+                    try {
+                        await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: "deleteProduct", data: { id: id } }) });
+                        Swal.fire('สำเร็จ', 'ลบสินค้าเรียบร้อย', 'success').then(() => loadInitialData());
+                    } catch (e) { Swal.fire('ผิดพลาด', 'ลบไม่สำเร็จ', 'error'); }
+                }
+            });
         }
 
         function showWelcomePopup() {
             if(storeSettings.welcomePopup) {
                 Swal.fire({ 
                     html: `<i class="fa-solid fa-wand-magic-sparkles text-cutie-400 text-3xl mb-3"></i><p class="font-heading text-xl text-cutie-600 font-medium">${storeSettings.welcomePopup}</p>`, 
-                    confirmButtonText: 'เข้าร้านค้า', 
-                    confirmButtonColor: '#f06292', 
-                    backdrop: `rgba(255,228,232,0.6)` 
+                    confirmButtonText: 'เข้าร้านค้า', confirmButtonColor: '#f06292', backdrop: `rgba(255,228,232,0.6)` 
                 });
             }
         }
