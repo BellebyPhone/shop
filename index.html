@@ -318,25 +318,28 @@
                 <div class="sub-card bg-cutie-50/30">
                     <label class="block text-sm font-heading font-semibold text-cutie-600 mb-3 text-center"><i class="fa-solid fa-calculator mr-1"></i> คำนวณแผนการผ่อน</label>
                     <div class="space-y-3">
+                        <div>
+                            <label class="block text-[10px] text-gray-500 mb-1 text-center">รอบส่งยอด</label>
+                            <select id="calc-cycle" onchange="updateFromDuration()" class="input-cutie !p-2 text-sm bg-white border-white shadow-sm w-full">
+                                <option value="รายเดือน">รายเดือน</option><option value="รายสัปดาห์">รายสัปดาห์</option><option value="รายวัน">รายวัน</option>
+                            </select>
+                        </div>
+                        
                         <div class="flex items-center gap-2">
                             <div class="w-1/2">
-                                <label class="block text-[10px] text-gray-500 mb-1 text-center">รอบส่งยอด</label>
-                                <select id="calc-cycle" onchange="calculateInstallment()" class="input-cutie !p-2 text-sm bg-white border-white shadow-sm">
-                                    <option value="รายเดือน">รายเดือน</option><option value="รายสัปดาห์">รายสัปดาห์</option><option value="รายวัน">รายวัน</option>
-                                </select>
+                                <label class="block text-[10px] text-gray-500 mb-1 text-center">ยอดส่ง (บาท/รอบ)</label>
+                                <input type="number" id="calc-amount" min="350" oninput="updateFromAmount()" class="input-cutie !p-2 text-sm font-bold text-cutie-600 bg-white border-2 border-white shadow-sm text-center" placeholder="ระบุยอด">
+                            </div>
+                            <div class="text-gray-300 text-xs mt-4">
+                                <i class="fa-solid fa-arrow-right-arrow-left"></i>
                             </div>
                             <div class="w-1/2">
-                                <label class="block text-[10px] text-gray-500 mb-1 text-center">จำนวนงวดที่ต้องการ</label>
-                                <input type="number" id="calc-duration" min="1" value="10" oninput="calculateInstallment()" class="input-cutie !p-2 text-sm font-bold text-gray-700 bg-white border-white shadow-sm text-center">
+                                <label class="block text-[10px] text-gray-500 mb-1 text-center">จำนวนงวด (ระยะเวลา)</label>
+                                <input type="number" id="calc-duration" min="1" oninput="updateFromDuration()" class="input-cutie !p-2 text-sm font-bold text-gray-700 bg-white border-2 border-white shadow-sm text-center" placeholder="ระบุจำนวน">
                             </div>
                         </div>
 
-                        <div class="bg-white p-3 rounded-xl border border-cutie-100 text-center relative overflow-hidden mt-2">
-                            <div class="absolute top-0 left-0 w-1 h-full bg-cutie-400"></div>
-                            <p class="text-xs text-gray-500 font-medium mb-1">ยอดส่งต่อรอบโดยประมาณ</p>
-                            <p class="text-2xl font-bold text-cutie-600" id="calc-amount-display">0</p>
-                            <p class="text-[9px] text-red-400 mt-1" id="calc-warning"></p>
-                        </div>
+                        <p class="text-[10px] text-red-500 mt-1 text-center font-medium h-4" id="calc-warning"></p>
                     </div>
                 </div>
 
@@ -450,7 +453,7 @@
         function openPaymentLink() { if(storeSettings.paymentBannerLink) window.open(storeSettings.paymentBannerLink, '_blank'); }
         function openLine() { if(storeSettings.lineUrl) window.open(storeSettings.lineUrl, '_blank'); }
 
-        // --- ระบบคำนวณและป๊อปอัป ---
+        // --- ระบบป๊อปอัปสินค้าและคำนวณ (2-Way Binding) ---
         function openProductDetail(productId) {
             const product = storeProducts.find(p => p['ID'] == productId);
             if(!product) return;
@@ -478,8 +481,10 @@
                 btnUse.style.display = 'none'; selectInstallmentType('ผ่อนจบรับของ');
             } else { selectInstallmentType('ผ่อนไปใช้ไป'); }
 
-            document.getElementById('calc-duration').value = 10; // ค่าเริ่มต้นงวด
-            calculateInstallment();
+            // ตั้งค่าตั้งต้นที่ 10 งวด และให้มันคำนวณยอดเงินให้อัตโนมัติ
+            document.getElementById('calc-duration').value = 10;
+            updateFromDuration(); 
+
             document.getElementById('product-modal').classList.remove('hidden');
         }
 
@@ -511,34 +516,66 @@
             }
         }
 
-        function calculateInstallment() {
-            let duration = parseInt(document.getElementById('calc-duration').value);
-            const warningEl = document.getElementById('calc-warning');
-            const displayEl = document.getElementById('calc-amount-display');
-
-            if (isNaN(duration) || duration < 1) { duration = 1; document.getElementById('calc-duration').value = 1; }
-            
+        // 1. ลูกค้าพิมพ์ยอดเงิน -> เปลี่ยนจำนวนงวด
+        function updateFromAmount() {
+            let amount = parseInt(document.getElementById('calc-amount').value);
             const remaining = selectedProductInfo.price - selectedProductInfo.down;
-            const amountPerCycle = Math.ceil(remaining / duration);
+            
+            if (isNaN(amount) || amount <= 0) {
+                document.getElementById('calc-duration').value = '';
+                checkMinimums(amount, 0);
+                return;
+            }
+            
+            let duration = Math.ceil(remaining / amount);
+            document.getElementById('calc-duration').value = duration;
+            checkMinimums(amount, duration);
+        }
 
-            displayEl.innerText = amountPerCycle.toLocaleString() + ' ฿';
-            selectedProductInfo.amountPerCycle = amountPerCycle;
+        // 2. ลูกค้าพิมพ์จำนวนงวด -> เปลี่ยนยอดเงิน
+        function updateFromDuration() {
+            let duration = parseInt(document.getElementById('calc-duration').value);
+            const remaining = selectedProductInfo.price - selectedProductInfo.down;
+            
+            if (isNaN(duration) || duration <= 0) {
+                document.getElementById('calc-amount').value = '';
+                checkMinimums(0, duration);
+                return;
+            }
+            
+            let amount = Math.ceil(remaining / duration);
+            document.getElementById('calc-amount').value = amount;
+            checkMinimums(amount, duration);
+        }
+
+        // ฟังก์ชันตรวจสอบและแจ้งเตือนยอดขั้นต่ำ 350
+        function checkMinimums(amount, duration) {
+            const warningEl = document.getElementById('calc-warning');
+            const amountEl = document.getElementById('calc-amount');
+            
+            selectedProductInfo.amountPerCycle = amount;
             selectedProductInfo.duration = duration;
             selectedProductInfo.cycle = document.getElementById('calc-cycle').value;
 
-            if (amountPerCycle < 350) {
-                warningEl.innerText = "* ยอดต่อรอบน้อยกว่า 350 บาท กรุณาลดจำนวนงวดลงค่ะ";
-                displayEl.classList.replace('text-cutie-600', 'text-red-500');
+            if (amount > 0 && amount < 350) {
+                warningEl.innerText = "* ยอดส่งขั้นต่ำต้อง 350 บาทขึ้นไป (โปรดลดงวดลง)";
+                amountEl.classList.add('text-red-500', 'border-red-400');
+                amountEl.classList.remove('text-cutie-600', 'border-white');
             } else {
                 warningEl.innerText = "";
-                displayEl.classList.replace('text-red-500', 'text-cutie-600');
+                amountEl.classList.remove('text-red-500', 'border-red-400');
+                amountEl.classList.add('text-cutie-600', 'border-white');
             }
         }
 
         function confirmProductToRegister() {
             if (selectedProductInfo.amountPerCycle < 350) {
-                Swal.fire('แจ้งเตือน', 'ยอดส่งขั้นต่ำต้อง 350 บาทขึ้นไปต่อรอบ กรุณาปรับจำนวนงวดลงนะคะ', 'warning'); return;
+                Swal.fire('แจ้งเตือน', 'ยอดส่งขั้นต่ำต้อง 350 บาทขึ้นไป กรุณาเพิ่มยอดเงินหรือลดจำนวนงวดลงนะคะ', 'warning'); return;
             }
+            if (isNaN(selectedProductInfo.duration) || selectedProductInfo.duration < 1) {
+                Swal.fire('แจ้งเตือน', 'กรุณาระบุจำนวนงวดให้ถูกต้องค่ะ', 'warning'); return;
+            }
+
             selectedProductInfo.storage = document.getElementById('sel-storage').value;
             selectedProductInfo.color = document.getElementById('sel-color').value;
             closeModal();
@@ -551,7 +588,7 @@
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> กำลังส่งข้อมูล...'; btn.disabled = true;
 
             const file = document.getElementById('reg-file').files[0];
-            if(!file) { Swal.fire('แจ้งเตือน', 'อย่าลืมแนบรูปบัตรประชาชนนะคะ', 'warning'); btn.innerHTML = 'ส่งข้อมูลลงทะเบียน'; btn.disabled = false; return; }
+            if(!file) { Swal.fire('แจ้งเตือน', 'อย่าลืมแนบรูปบัตรประชาชนนะคะ', 'warning'); btn.innerHTML = 'ส่งข้อมูลลงทะเบียน <i class="fa-solid fa-arrow-right ml-1"></i>'; btn.disabled = false; return; }
 
             const reader = new FileReader();
             reader.onload = async function() {
@@ -610,7 +647,7 @@
             } catch (e) { Swal.fire('ผิดพลาด', 'บันทึกไม่สำเร็จ', 'error'); }
         }
 
-        // --- เพิ่ม/แก้ไข/ลบ สินค้า ---
+        // --- ระบบเพิ่ม/แก้ไข/ลบ สินค้า ---
         function renderAdminProductList() {
             const listContainer = document.getElementById('admin-product-list');
             if (storeProducts.length === 0) { listContainer.innerHTML = '<p class="text-xs text-gray-400 text-center">ยังไม่มีสินค้า</p>'; return; }
@@ -620,15 +657,15 @@
                 return `
                 <div class="flex items-center justify-between p-3 border border-gray-100 rounded-xl bg-gray-50">
                     <div class="flex items-center gap-3">
-                        <img src="${p['รูปภาพ']}" class="w-10 h-10 object-contain bg-white rounded-lg p-1">
+                        <img src="${p['รูปภาพ']}" class="w-10 h-10 object-contain bg-white rounded-lg p-1 border border-gray-100">
                         <div>
                             <p class="text-sm font-semibold text-gray-700 line-clamp-1">${p['ชื่อสินค้า']}</p>
-                            <p class="text-[10px] text-gray-500">ราคา: ${p['ราคาเต็ม']} | ดาวน์: ${p['ดาวน์เริ่มต้น']}</p>
+                            <p class="text-[10px] text-gray-500">ราคา: ${Number(p['ราคาเต็ม']).toLocaleString()} | ดาวน์: ${Number(p['ดาวน์เริ่มต้น']).toLocaleString()}</p>
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick='editAdminProduct(${JSON.stringify(p).replace(/'/g, "&#39;")})' class="w-8 h-8 rounded-full bg-blue-100 text-blue-500 hover:bg-blue-200 transition flex justify-center items-center"><i class="fa-solid fa-pen"></i></button>
-                        <button onclick="deleteAdminProduct('${p['ID']}')" class="w-8 h-8 rounded-full bg-red-100 text-red-500 hover:bg-red-200 transition flex justify-center items-center"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick='editAdminProduct(${JSON.stringify(p).replace(/'/g, "&#39;")})' class="w-8 h-8 rounded-full bg-blue-100 text-blue-500 hover:bg-blue-200 transition flex justify-center items-center shadow-sm"><i class="fa-solid fa-pen text-xs"></i></button>
+                        <button onclick="deleteAdminProduct('${p['ID']}')" class="w-8 h-8 rounded-full bg-red-100 text-red-500 hover:bg-red-200 transition flex justify-center items-center shadow-sm"><i class="fa-solid fa-trash text-xs"></i></button>
                     </div>
                 </div>`;
             }).join('');
@@ -645,7 +682,7 @@
             document.getElementById('adm-prod-price').value = product['ราคาเต็ม'];
             document.getElementById('adm-prod-down').value = product['ดาวน์เริ่มต้น'];
             
-            document.getElementById('admin-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square text-blue-400 mr-2"></i> แก้ไขสินค้า';
+            document.getElementById('admin-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square text-blue-400 mr-2"></i> แก้ไขข้อมูลสินค้า';
             document.getElementById('btn-save-product').innerText = 'บันทึกการแก้ไข';
             document.getElementById('btn-cancel-edit').classList.remove('hidden');
             document.getElementById('admin-product-form-box').scrollIntoView({ behavior: 'smooth' });
@@ -678,7 +715,7 @@
             try {
                 await fetch(GAS_WEBAPP_URL, { method: 'POST', body: JSON.stringify({ action: action, data: payload }) });
                 Swal.fire('สำเร็จ', 'อัปเดตสต็อกเรียบร้อย', 'success').then(() => {
-                    resetAdminProductForm(); loadInitialData(); // โหลดใหม่เพื่ออัปเดต list
+                    resetAdminProductForm(); loadInitialData(); 
                 });
             } catch (e) { Swal.fire('ผิดพลาด', 'บันทึกไม่สำเร็จ', 'error'); }
         }
