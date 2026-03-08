@@ -159,25 +159,27 @@
                         <div class="space-y-3">
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label class="block text-xs text-gray-500 mb-1">ชื่อจริง</label>
+                                    <label class="block text-xs text-gray-500 mb-1 text-center">ชื่อจริง</label>
                                     <input type="text" id="reg-firstname" required class="input-cutie text-sm text-center">
                                 </div>
                                 <div>
-                                    <label class="block text-xs text-gray-500 mb-1">นามสกุล</label>
+                                    <label class="block text-xs text-gray-500 mb-1 text-center">นามสกุล</label>
                                     <input type="text" id="reg-lastname" required class="input-cutie text-sm text-center">
                                 </div>
                             </div>
+                            
                             <div>
-                                <label class="block text-xs text-gray-500 mb-1">เลขประจำตัวประชาชน (13 หลัก)</label>
+                                <label class="block text-xs text-gray-500 mb-1 text-center">เลขประจำตัวประชาชน (13 หลัก)</label>
                                 <input type="text" id="reg-idcard" required maxlength="13" class="input-cutie text-sm text-center">
                             </div>
-                            <div class="grid grid-cols-3 gap-3">
-                                <div class="col-span-2">
-                                    <label class="block text-xs text-gray-500 mb-1">วัน/เดือน/ปีเกิด</label>
+                            
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs text-gray-500 mb-1 text-center">วัน/เดือน/ปีเกิด</label>
                                     <input type="date" id="reg-dob" required class="input-cutie text-sm text-center">
                                 </div>
                                 <div>
-                                    <label class="block text-xs text-gray-500 mb-1">อายุ</label>
+                                    <label class="block text-xs text-gray-500 mb-1 text-center">อายุ</label>
                                     <input type="number" id="reg-age" required min="15" class="input-cutie text-sm text-center">
                                 </div>
                             </div>
@@ -188,16 +190,17 @@
                         <h3 class="font-heading text-sm text-cutie-500 font-semibold mb-4 border-b border-cutie-100 pb-2"><i class="fa-solid fa-address-book mr-2"></i> ข้อมูลการติดต่อ</h3>
                         <div class="space-y-3">
                             <div>
-                                <label class="block text-xs text-gray-500 mb-1">เบอร์โทรศัพท์ (ติดต่อได้)</label>
+                                <label class="block text-xs text-gray-500 mb-1 text-center">เบอร์โทรศัพท์ (ติดต่อได้)</label>
                                 <input type="tel" id="reg-phone" required maxlength="10" class="input-cutie text-sm text-center">
                             </div>
+                            
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label class="block text-xs text-gray-500 mb-1">จังหวัดปัจจุบัน</label>
+                                    <label class="block text-xs text-gray-500 mb-1 text-center">จังหวัดปัจจุบัน</label>
                                     <input type="text" id="reg-province" required class="input-cutie text-sm text-center">
                                 </div>
                                 <div>
-                                    <label class="block text-xs text-gray-500 mb-1">เพศ</label>
+                                    <label class="block text-xs text-gray-500 mb-1 text-center">เพศ</label>
                                     <select id="reg-gender" class="input-cutie text-sm text-center">
                                         <option value="ชาย">ชาย</option><option value="หญิง">หญิง</option><option value="อื่นๆ">อื่นๆ</option>
                                     </select>
@@ -486,7 +489,6 @@
                 btnUse.style.display = 'none'; selectInstallmentType('ผ่อนจบรับของ');
             } else { selectInstallmentType('ผ่อนไปใช้ไป'); }
 
-            // ล้างช่องกรอกข้อมูลให้ว่างเปล่าเพื่อให้ลูกค้ากรอกเอง
             document.getElementById('calc-amount').value = '';
             document.getElementById('calc-duration').value = '';
             document.getElementById('calc-warning').innerText = '';
@@ -524,7 +526,6 @@
             }
         }
 
-        // ตรวจสอบยอดขั้นต่ำ 350 โดยไม่คำนวณสลับช่อง
         function checkAmount() {
             let amount = parseInt(document.getElementById('calc-amount').value);
             const warningEl = document.getElementById('calc-warning');
@@ -549,7 +550,7 @@
                 Swal.fire('แจ้งเตือน', 'กรุณาระบุยอดส่งที่ต้องการ โดยขั้นต่ำต้อง 350 บาทขึ้นไปนะคะ', 'warning'); return;
             }
             if (isNaN(duration) || duration < 1) {
-                Swal.fire('แจ้งเตือน', 'กรุณาระบุจำนวนงวด (ระยะเวลา) ให้ถูกต้องค่ะ', 'warning'); return;
+                Swal.fire('แจ้งเตือน', 'กรุณาระบุจำนวน (งวด/เดือน) ให้ถูกต้องค่ะ', 'warning'); return;
             }
 
             selectedProductInfo.amountPerCycle = amount;
@@ -562,7 +563,6 @@
             switchPage('register');
         }
 
-        // --- ระบบส่งฟอร์ม ---
         async function submitRegistration(e) {
             e.preventDefault();
             const btn = document.getElementById('reg-submit-btn');
@@ -602,7 +602,6 @@
             reader.readAsDataURL(file);
         }
 
-        // --- ระบบแอดมินและการจัดการสต็อก ---
         async function promptAdminLogin() {
             const { value: pass } = await Swal.fire({
                 title: 'เข้าสู่ระบบแอดมิน', 
